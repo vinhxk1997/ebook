@@ -33,12 +33,7 @@ class StoryController extends Controller
             $q->published();
         }])->findOrFail($id);
 
-        $votes = 0;
-        foreach ($story->chapters as $chapter) {
-          $votes += $chapter->votes->count();
-        }
-
-        return view('front.story_preview', compact('story', 'votes'));
+        return view('front.story_preview', compact('story'));
     }
 
     private function getStoryInfo($id)
@@ -60,11 +55,6 @@ class StoryController extends Controller
             return $chapter;
         });
 
-        $votes = 0;
-        foreach ($story->chapters as $chapter) {
-            $votes += $chapter->votes->count();
-        }
-
         $story->share_text = urlencode($story->title);
         $story->share_url = urlencode(route('story', ['id' => $story->id, 'slug' => $story->slug]));
         $first_chapter = $story->chapters->first();
@@ -78,6 +68,6 @@ class StoryController extends Controller
 
         $recommended_stories = $this->story->getRecommendedStories();
 
-        return view('front.story', compact('story', 'first_chapter', 'recent_comments', 'recommended_stories', 'votes'));
+        return view('front.story', compact('story', 'first_chapter', 'recent_comments', 'recommended_stories'));
     }
 }
