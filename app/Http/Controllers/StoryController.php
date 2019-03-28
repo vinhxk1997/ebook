@@ -1,0 +1,83 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Repositories\StoryRepository;
+use Illuminate\Http\Request;
+
+class StoryController extends Controller
+{
+    protected $story;
+
+    public function __construct(StoryRepository $story)
+    {
+        $this->story = $story;
+    }
+
+    public function story($id, Request $request)
+    {
+        if ($request->ajax()) {
+            return $this->ajaxStoryInfo($id);
+        } else {
+            return $this->getStoryInfo($id);
+        }
+    }
+
+    private function ajaxStoryInfo($id)
+    {
+        $story = $this->story->published()->with([
+            'metas',
+            'user',
+            'chapters',
+        ])->withCount(['metas', 'chapters' => function ($q) {
+            $q->published();
+        }])->findOrFail($id);
+
+        $votes = 0;
+        foreach ($story->chapters as $chapter) {
+          $votes += $chapter->votes->count();
+        }
+
+        return view('front.story_preview', compact('story', 'votes'));
+    }
+
+    private function getStoryInfo($id)
+    {
+        $story = $this->story->published()->with([
+            'metas',
+            'chapters' => function ($query) {
+                return $query->published()->withCount('votes')->orderBy('id', 'asc');
+            },
+            'user',
+        ])->withCount(['metas', 'chapters' => function ($q) {
+            $q->published();
+        }])->findOrFail($id);
+        
+
+        $story->chapters = $story->chapters->map(function ($chapter) use ($story) {
+            $chapter->slug = $story->slug . '-' . $chapter->slug;
+
+            return $chapter;
+        });
+
+        $votes = 0;
+        foreach ($story->chapters as $chapter) {
+            $votes += $chapter->votes->count();
+        }
+
+        $story->share_text = urlencode($story->title);
+        $story->share_url = urlencode(route('story', ['id' => $story->id, 'slug' => $story->slug]));
+        $first_chapter = $story->chapters->first();
+        $recent_comments = $this->story->getStoryRecentComments($story);
+
+        $recent_comments = $recent_comments->map(function ($comment) use ($story) {
+            $comment->chapter = $story->chapters->find($comment->commentable_id);
+
+            return $comment;
+        });
+
+        $recommended_stories = $this->story->getRecommendedStories();
+
+        return view('front.story', compact('story', 'first_chapter', 'recent_comments', 'recommended_stories', 'votes'));
+    }
+}
