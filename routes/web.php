@@ -13,6 +13,8 @@
 
 // Home
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/crawl', 'CrawlController@index');
+
 
 // Category
 Route::get('/stories/{slug}', 'MetaController@stories')->name('meta');

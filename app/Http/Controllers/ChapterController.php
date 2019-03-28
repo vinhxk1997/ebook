@@ -7,6 +7,7 @@ use App\Repositories\ChapterRepository;
 use App\Repositories\CommentRepository;
 use App\Repositories\StoryRepository;
 use App\Repositories\VoteRepository;
+use Auth;
 
 class ChapterController extends Controller
 {
@@ -28,9 +29,9 @@ class ChapterController extends Controller
         $story = $chapter->story()->published()->with(['user', 'chapters' => function ($q) {
             $q->published();
         }])->first();
-
-        $vote = $this->vote->where('user_id', auth()->user()->id)->where('votable_id', $chapter->id)->first();
-
+        if (Auth::check()) {
+            $vote = $this->vote->where('user_id', auth()->user()->id)->where('votable_id', $chapter->id)->first();
+        }
         $chapter->comments = $this->comment->getComments($chapter->id, $this->chapter->getModelClass());
         $story->chapters = $story->chapters->map(function ($chapter) use ($story) {
             $chapter->slug = $story->slug . '-' . $chapter->slug;
@@ -39,7 +40,7 @@ class ChapterController extends Controller
         });
 
         $session_key = 'reading_' . $id;
-        if (!session($session_key) || (session($session_key) && now()->diffInSeconds(session($session_key)) > 300)) {
+        if (!session($session_key) || (session($session_key) && now()->diffInSeconds(session($session_key)) > 30)) {
             session([$session_key => now()]);
             // update chapter views
             $this->chapter->where('id', $id)->increment('views');

@@ -11,7 +11,7 @@
                 <h1>{{ $story->title }}</h1>
                 <div class="story-stats">
                     <span title="@lang('app.view_count', ['count' => $story->views])">@lang('app.view_count', ['count' => $story->views])</span>
-                    <span title="@lang('app.vote_count', ['count' => $story->votes])">@lang('app.vote_count', ['count' => $votes])</span>
+                    <span title="@lang('app.vote_count', ['count' => $story->votes])">@lang('app.vote_count', ['count' => $story->votes])</span>
                     <span>@lang('app.chapter_count', ['count' => $story->chapters_count])</span>
                 </div>
                 <div class="story-author">
