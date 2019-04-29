@@ -16,7 +16,12 @@ class Story extends Model
 
     protected $guarded = ['id'];
 
-    protected $cascadeDeletes = ['chapters'];
+    protected $cascadeDeletes = [
+        'chapters',
+        'comments',
+        'reports',
+        'review'
+    ];
 
     protected $casts = [
         'is_mature' => 'boolean',
@@ -107,5 +112,31 @@ class Story extends Model
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'user_id');
+    }
+
+    public function views()
+    {
+        $views = 0;
+        $chapters = $this->chapters;
+        if (!is_null($chapters)) {
+            foreach ($chapters as $chapter) {
+                $views += views($chapter)->count();
+            }
+        }
+
+        return $views;
+    }
+
+    public function votes()
+    {
+        $votes = 0;
+        $chapters = $this->chapters;
+        if (!is_null($chapters)) {
+            foreach ($chapters as $chapter) {
+                $votes += $chapter->votes()->count();
+            }
+        }
+
+        return $votes;
     }
 }

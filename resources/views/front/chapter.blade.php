@@ -41,11 +41,11 @@
                 </div>
                 @if ($vote != null)
                 <div class="d-inline-block button-vote">
-                    <button class="btn btn-default voted" data-id="{{ $chapter->id }}"><i class="fa fa-star mr-2"></i> @lang('app.vote')</button>
+                    <button class="btn btn-default btnvote voted" data-id="{{ $chapter->id }}"><i class="fa fa-star mr-2"></i> @lang('app.vote')</button>
                 </div>
                 @else
                 <div class="d-inline-block button-vote">
-                    <button class="btn btn-default unvoted" data-id="{{ $chapter->id }}"><i class="fa fa-star mr-2"></i> @lang('app.vote')</button>
+                    <button class="btn btn-default btnvote unvoted" data-id="{{ $chapter->id }}"><i class="fa fa-star mr-2"></i> @lang('app.vote')</button>
                 </div>
                 @endif
             </div>
@@ -58,7 +58,7 @@
                 <div class="chapter-header text-center border-bottom">
                     <h2>{{ $chapter->title }}</h2>
                     <div class="story-stats">
-                        <span class="count-view"><i class="fa fa-eye"></i> {{ $chapter->views }}</span>
+                        <span class="count-view"><i class="fa fa-eye"></i> {{ views($chapter)->count() }}</span>
                         <span class="count-vote"><i class="fa fa-star"></i> {{ $chapter->votes_count }}</span>
                         <span class="count-chapter"><i class="fa fa-comment"></i> <a href="#comments">{{ $chapter->comments_count }}</a></span>
                     </div>
@@ -84,11 +84,7 @@
                                     <i class="fa fa-circle fa-stack-2x text-twitter"></i>
                                     <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
                                 </span></a>
-                            <a class="social-share" href="#">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x text-danger"></i>
-                                    <i class="fa fa-code fa-stack-1x fa-inverse"></i>
-                                </span></a>
+                            @if (auth()->user()) 
                             <div class="social-share dropup">
                                 <a class="social-share" href="#" data-toggle="dropdown">
                                     <span class="fa-stack fa-lg">
@@ -97,12 +93,11 @@
                                     </span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-left">
-                                    <a target="_blank" href="mailto:?subject={{ $chapter->share_text }}&body={{ $chapter->share_text }}%0A{{ $chapter->share_url }}" class="dropdown-item"><i class="fa fa-envelope-o" aria-hidden="true"></i>
-                                        @lang('app.share_via_email')</a>
-                                    <a href="#" class="dropdown-item"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                    <a href="#" class="dropdown-item" data-toggle="modal" data-target="#myModalReport"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>
                                         @lang('app.report_this_story')</a>
                                 </div>
                             </div>
+                            @endif
                         </div>
                     </div>
                     <div class="col-md-7 col-lg-6 main-content">
@@ -136,11 +131,11 @@
                                 </div>
                                     @if ($vote != null)
                                     <div class="d-inline-block button-vote">
-                                        <button class="btn btn-default voted" data-id="{{ $chapter->id }}"><i class="fa fa-star mr-2"></i> @lang('app.vote')</button>
+                                        <button class="btn btn-default btnvote voted" data-id="{{ $chapter->id }}"><i class="fa fa-star mr-2"></i> @lang('app.vote')</button>
                                     </div>
                                     @else
                                     <div class="d-inline-block button-vote">
-                                        <button class="btn btn-default unvoted" data-id="{{ $chapter->id }}"><i class="fa fa-star mr-2"></i> @lang('app.vote')</button>
+                                        <button class="btn btn-default btnvote unvoted" data-id="{{ $chapter->id }}"><i class="fa fa-star mr-2"></i> @lang('app.vote')</button>
                                     </div>
                                     @endif
                                 @endauth
@@ -157,11 +152,7 @@
                                         <i class="fa fa-circle fa-stack-2x text-twitter"></i>
                                         <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
                                     </span></a>
-                                <a class="social-share" href="#">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x text-danger"></i>
-                                        <i class="fa fa-code fa-stack-1x fa-inverse"></i>
-                                    </span></a>
+                                @if (auth()->user())
                                 <div class="social-share dropdown">
                                     <a class="social-share" href="#" data-toggle="dropdown">
                                         <span class="fa-stack fa-lg">
@@ -170,12 +161,11 @@
                                         </span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
-                                        <a target="_blank" href="mailto:?subject={{ $chapter->share_text }}&body={{ $chapter->share_text }}%0A{{ $chapter->share_url }}" class="dropdown-item"><i class="fa fa-envelope-o" aria-hidden="true"></i>
-                                            @lang('app.share_via_email')</a>
-                                        <a href="#" class="dropdown-item"><i class="fa fa-exclamation-circle"
+                                        <a href="#" class="dropdown-item" data-toggle="modal" data-target="#myModalReport"><i class="fa fa-exclamation-circle"
                                                 aria-hidden="true"></i> @lang('app.report_this_story')</a>
                                     </div>
                                 </div>
+                                @endif
                             </div>
                         </div>
                         <div class="chapter-comments mt-3" id="comments">
@@ -231,5 +221,35 @@
         </div>
     </div>
     @endif
+    <!-- Modal update-->
+    <div class="modal fade" id="myModalReport" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{ trans('tran.report') }}</h4>
+                </div>
+                {!! Form::open(['route' => ['user_report', $story->id], 'method' => 'POST']) !!}
+                <div class="modal-body">
+                    <div class="form-group">
+                        {!! Form::label(trans('tran.content'), '', ['class' => '']) !!}
+                        {!! Form::textarea('content', null, ['class' => 'form-control' . ($errors->has('address') ? ' is-invalid' : ''), 'required']) !!}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    {!! Form::button(trans('tran.cancel'), ['class' => 'btn btn-dark pull-left', 'data-dismiss' => 'modal', 'type' => 'button']) !!}
+                    {!! Form::button(trans('tran.create'), ['class' => 'btn btn-info pull-right', 'type' => 'submit']) !!}
+                </div>
+                {!! Form::close() !!}
+            </div>
+        </div>
+    </div>
 </div>
-@stop
+<script>
+  var msg = '{{Session::get('success')}}';
+  var exist = '{{Session::has('success')}}';
+  if(exist){
+    alert(msg);
+  }
+</script>
+@endsection

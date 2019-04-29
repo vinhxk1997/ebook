@@ -14,6 +14,8 @@
 // Home
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/crawl', 'CrawlController@index');
+Route::get('/new', 'CrawlController@new');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 
 // Category
@@ -21,6 +23,8 @@ Route::get('/stories/{slug}', 'MetaController@stories')->name('meta');
 Route::get('/stories/{slug}/new', 'MetaController@newStories')->name('meta_new_stories');
 // Story details
 Route::get('/story/{id}-{slug}', 'StoryController@story')->name('story');
+Route::get('/story/{id}', 'StoryController@getStory');
+
 // Story chapters
 Route::get('/{id}-{slug}', 'ChapterController@index')->name('read_chapter');
 Route::get('/chapter/{id}/comments', 'ChapterController@comments')->name('chapter_comments');
@@ -30,6 +34,8 @@ Route::get('/search', 'HomeController@search')->name('search');
 // Saved stories
 Route::get('/lists/{list}', 'LibraryController@list')->name('list'); // save list details
 Route::group(['middleware' => 'auth'], function () {
+    //report
+    Route::post('/story/{id}/report', 'ChapterController@report')->name('user_report');
     // create story
     Route::get('/works', 'WorkController@index')->name('works');
     Route::group(['middleware' => 'can:create,App\Models\Story'], function () {

@@ -22,6 +22,15 @@ class UsersTableSeeder extends Seeder
             'full_name' => 'Administrator',
             'created_at' => now(),
         ]);
+        DB::table('users')->insert([
+            'login_name' => 'user1',
+            'email' => 'user1@gmail.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('123456'),
+            'role' => '0',
+            'full_name' => 'user1',
+            'created_at' => now(),
+        ]);
         factory(App\Models\User::class, 25)->create()->each(function ($user) {
             $user->profile()->save(factory(App\Models\UserProfile::class)->make());
             factory(App\Models\Story::class, rand(1, 4))->create([

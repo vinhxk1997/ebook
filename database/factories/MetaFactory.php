@@ -9,6 +9,6 @@ $factory->define(App\Models\Meta::class, function (Faker $faker) {
     return [
         'name' => $name,
         'slug' => str_slug($name),
-        'type' => $faker->randomElement(['tag', 'category']),
+        'type' => $faker->randomElement(['category']),
     ];
 });

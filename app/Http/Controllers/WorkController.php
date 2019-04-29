@@ -70,7 +70,7 @@ class WorkController extends Controller
             'title' =>  $request->input('story_title'),
             'slug' => str_slug($request->input('story_title')),
             'summary' => $request->input('story_summary'),
-            'is_mature' => $request->filled('story_rating'),
+            'is_mature' => ($request->has('story_mature') == true) ? 1 : 0,
         ];
 
         if ($request->hasFile('story_cover')) {
@@ -138,8 +138,8 @@ class WorkController extends Controller
         $story->title = $request->input('story_title');
         $story->slug = str_slug($request->input('story_title'));
         $story->summary = $request->input('story_summary');
-        $story->is_mature = $request->filled('story_rating');
-        $story->is_complete = $request->filled('story_completed');
+        $story->is_mature = ($request->has('story_mature') == true) ? 1 : 0;
+        $story->is_complete = ($request->has('story_completed') == true) ? 1 : 0;
 
         if ($request->hasFile('story_cover')) {
             $story_cover = uploadFile(

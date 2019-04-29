@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Iatstuti\Database\Support\CascadeSoftDeletes;
 
 class Comment extends Model
 {
@@ -15,6 +16,10 @@ class Comment extends Model
         'created_at',
         'updated_at',
         'deteted_at',
+    ];
+
+    protected $cascadeDeletes = [
+        'replies'
     ];
 
     public function commentable()

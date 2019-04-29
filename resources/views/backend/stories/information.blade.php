@@ -19,7 +19,7 @@
             </div>
             {!! Form::label('report', trans('tran.report'), ['class' => 'col-md-1 col-form-label text-md-right']) !!}
             <div class="col-md-1">
-                {!! Form::text('report', '', ['class' => 'form-control', 'id' => 'report', 'readonly']) !!}
+                {!! Form::text('report', $story->reports->count(), ['class' => 'form-control', 'id' => 'report', 'readonly']) !!}
             </div>
             {!! Form::label('chapter', trans('tran.chapter'), ['class' => 'col-md-1 col-form-label text-md-right']) !!}
             <div class="col-md-1">
@@ -64,7 +64,7 @@
         <div class="form-group row">
             {!! Form::label('view', trans('tran.views'), ['class' => 'col-md-1 col-form-label text-md-right']) !!}
             <div class="col-md-2">
-                {!! Form::text('view', $story->views, ['class' => 'form-control', 'id' => 'view', 'readonly']) !!}
+                {!! Form::text('view', $story->views(), ['class' => 'form-control', 'id' => 'view', 'readonly']) !!}
             </div>
         </div>
 
@@ -87,17 +87,25 @@
         <div class="form-group row tag-form">
             {!! Form::label('tag', 'Tag', ['class' => 'col-md-1 col-form-label text-md-right']) !!}
             <div class="col-md-5">
+            @if ($tags->count())
                 @foreach ($tags as $tag)
                     <span class="cates">{{ $tag->name }}</span>
                 @endforeach
+            @else
+                <span>Không có tags</span>
+            @endif
             </div>
         </div>
         <div class="form-group row">
             {!! Form::label('category', trans('tran.category'), ['class' => 'col-md-1 col-form-label text-md-right']) !!}
             <div class="col-md-5">
-                @foreach ($cates as $cate)
-                    <div class="cates">{{ $cate->name }}</div>
-                @endforeach
+                @if ($cates != null)
+                    <select class="form-control" name="cate" style="width:auto;">
+                        @foreach ($cates as $cate)
+                            <option {{ $cate->id == $current_cate->id ? 'selected' : '' }} value="{{ $cate->id }}">{{ $cate->name }}</option>
+                        @endforeach
+                    </select>
+                @endif
             </div>
         </div>
 

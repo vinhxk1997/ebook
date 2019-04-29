@@ -5,8 +5,8 @@
     <div class="col-6 px-3 pt-3 d-flex flex-column">
         <h4 class="story-title">{{ $story->title }}</h4>
         <div class="story-stats">
-            <span class="view-count"><i class="fa fa-eye"></i> {{ $story->views }}</span>
-            <span class="vote-count"><i class="fa fa-star"></i> {{ $story->votes }}</span>
+            <span class="view-count"><i class="fa fa-eye"></i> {{ $story->views() }}</span>
+            <span class="vote-count"><i class="fa fa-star"></i> {{ $story->votes() }}</span>
             <span class="chapter-count"><i class="fa fa-list-ul"></i> {{ $story->chapters_count }}</span>
         </div>
         <div class="actions">
@@ -36,7 +36,7 @@
             @endif
         </div>
         <div class="story-info py-2 mt-auto">
-            @if ($story->is_completed)
+            @if ($story->is_complete)
                 <span class="completed text">@lang('app.completed')</span>
             @else
                 <span class="ongoing text">@lang('app.ongoing')</span>

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ReportFormRequest;
 use App\Repositories\ChapterRepository;
 use App\Repositories\CommentRepository;
 use App\Repositories\StoryRepository;
 use App\Repositories\VoteRepository;
+use App\Repositories\ReportRepository;
 use Auth;
 
 class ChapterController extends Controller
@@ -14,13 +16,15 @@ class ChapterController extends Controller
     protected $chapter;
     protected $comment;
     protected $story;
+    protected $report;
 
-    public function __construct(ChapterRepository $chapter, CommentRepository $comment, StoryRepository $story, VoteRepository $vote)
+    public function __construct(ChapterRepository $chapter, CommentRepository $comment, StoryRepository $story, VoteRepository $vote, ReportRepository $report)
     {
         $this->chapter = $chapter;
         $this->comment = $comment;
         $this->story = $story;
         $this->vote = $vote;
+        $this->report = $report;
     }
 
     public function index($id)
@@ -39,15 +43,7 @@ class ChapterController extends Controller
             return $chapter;
         });
 
-        $session_key = 'reading_' . $id;
-        if (!session($session_key) || (session($session_key) && now()->diffInSeconds(session($session_key)) > 30)) {
-            session([$session_key => now()]);
-            // update chapter views
-            $this->chapter->where('id', $id)->increment('views');
-            $chapter->views++;
-            // update story views
-            $this->story->where('id', $story->id)->increment('views');
-        }
+        views($chapter)->delayInSession(now()->addHours(1))->record();
 
         $chapter->slug = $story->slug . '-' . $chapter->slug;
         $chapter->share_url = urlencode(route('read_chapter', ['id' => $chapter->id, 'slug' => $chapter->slug]));
@@ -80,5 +76,19 @@ class ChapterController extends Controller
 
             return response()->json($comments);
         }
+    }
+    public function report($id, ReportFormRequest $request)
+    {
+        $story = $this->story->find($id);
+        $content = strip_tags($request->input('content'));
+        if (auth()->user() && $story != null) {
+            $this->report->create([
+                'user_id' => auth()->user()->id,
+                'story_id' => $story->id,
+                'content' => $content
+            ]);
+        }
+
+        return redirect()->back()->with('success', "report thanh cong cho admin xu ly");
     }
 }

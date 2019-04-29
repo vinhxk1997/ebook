@@ -1,25 +1,26 @@
 $(document).ready(function () {
-    $('.owl-carousel').owlCarousel({
-        loop: true,
-        autoplay: true,
-        dots: false,
-        margin: 30,
-        responsive: {
-            0: {
-                items: 1
-            },
-            768: {
-                items: 1.5
-            },
-            992: {
-                items: 2.5,
-                nav: true
-            },
-            1366: {
-                items: 2.5,
-                nav: true
+    var owl = $('.owl-carousel');
+    owl.owlCarousel({
+        items:1,
+        loop:true,
+        margin:5,
+        autoplay:true,
+        autoplayTimeout:5000,
+        autoplayHoverPause:true
+    });
+    $(document).on('changed.owl.carousel', '#carousel', function () {
+        let story_id = $(this).find('.owl-item.active').find('.item').data('id');
+        $.ajax({
+            url: ebook.base_url + '/story/' + story_id,
+            method: 'get',
+            dataType: 'json'
+        }).done(function (rs) {
+            if ($('#story-decription').length) {
+                $('#story-decription').empty();
+                $('#story-decription').append('<div><h3>' + rs.title +'</h3><pre>' + rs.summary + '</pre>'
+                + '<a href="' + ebook.base_url + '/story/' + rs.id + '-' + rs.slug + '" class="btn btn-info">' + ebook.lang.read + '</a></div>');
             }
-        }
+        });
     });
     $(document).on('click', '.on-story-preview', function () {
         var $this = $(this),
@@ -421,7 +422,7 @@ $(document).ready(function () {
                 cache: false,
             });
         }
-    }).on('click', 'button', function () {
+    }).on('click', '.btnvote', function () {
         if ($(this).hasClass('unvoted')) {
             $('.button-vote').find('button').removeClass('unvoted');
             $('.button-vote').find('button').addClass('voted');

@@ -11,6 +11,11 @@
         {{ session('status') }}
     </div>
     @endif
+    @if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+    @endif
     {!! Form::open(['method' => 'POST']) !!}
     <div class="form-group row">
         {!! Form::label('meta_name', trans('tran.meta_name'), ['class' => 'col-md-2 col-form-label text-center']) !!}

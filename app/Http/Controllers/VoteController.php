@@ -30,12 +30,6 @@ class VoteController extends Controller
                     'votable_id' => $chapter->id,
                 ]);
 
-                $story = $chapter->story()->first();
-                $votes = $story->votes + 1;
-                $story->update([
-                    'votes' => $votes
-                ]);
-
                 return response()->json('success');
             }
             return response()->json('fail');
@@ -48,14 +42,6 @@ class VoteController extends Controller
             if (Auth::check()) {
                 $chapter = $this->chapter->findOrFail($id);
                 \DB::table('votes')->where('user_id', auth()->user()->id)->where('votable_id', $chapter->id)->delete();
-            
-                $story = $chapter->story()->first();
-                if ($story->votes) {
-                    $votes = $story->votes - 1;
-                    $story->update([
-                        'votes' => $votes
-                    ]);
-                }
 
                 return response()->json('success');
             }

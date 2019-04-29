@@ -28,7 +28,7 @@
                     <li class="nav-item dropdown" id="metaDropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
-                            @lang('app.discover')
+                            {{ trans('tran.category') }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             @foreach ($categories as $category)
@@ -125,7 +125,15 @@
     <footer id="app-footer">
         <div class="container">
             <ul id="footer-items" class="d-flex justify-content-center" role="navigation">
-                <li><a href="#" rel="nofollow">@lang('app.language')</a></li>
+                <li>
+                    <a rel="nofollow"class="dropdown-toggle" data-toggle="dropdown">
+                        @lang('app.language')
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+                        <a class="dropdown-item" href="{!! route('change-language', ['en']) !!}">{{ trans('tran.english') }}</a>
+                        <a class="dropdown-item" href="{!! route('change-language', ['vi']) !!}">{{ trans('tran.vietnamese') }}</a>
+                    </div>
+                </li>
                 <li><a href="#" rel="nofollow">@lang('app.about_us')</a></li>
                 <li><a href="#" rel="nofollow">@lang('app.terms')</a></li>
                 <li><a href="#" rel="nofollow">@lang('app.privacy')</a></li>
@@ -161,6 +169,7 @@
             view_more_reply: '{{ __('app.view_more_reply') }}',
             follow: '{{ __('app.following') }}',
             unfollow: '{{ __('app.follow') }}',
+            read: '{{ __('tran.read') }}'
         };
     </script>
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>

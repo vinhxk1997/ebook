@@ -10,8 +10,8 @@
                 </div>
                 <h1>{{ $story->title }}</h1>
                 <div class="story-stats">
-                    <span title="@lang('app.view_count', ['count' => $story->views])">@lang('app.view_count', ['count' => $story->views])</span>
-                    <span title="@lang('app.vote_count', ['count' => $story->votes])">@lang('app.vote_count', ['count' => $story->votes])</span>
+                    <span title="@lang('app.view_count', ['count' => $story->views()])">@lang('app.view_count', ['count' => $story->views()])</span>
+                    <span title="@lang('app.vote_count', ['count' => $story->votes()])">@lang('app.vote_count', ['count' => $story->votes()])</span>
                     <span>@lang('app.chapter_count', ['count' => $story->chapters_count])</span>
                 </div>
                 <div class="story-author">
@@ -34,23 +34,6 @@
                     <a class="share-twitter social-share" rel="nofollow" target="_blank" href="https://twitter.com/intent/tweet?text={{ $story->share_text }}&url={{ $story->share_url }}">
                         <span class="fa fa-twitter" aria-hidden="true"></span>
                     </a>
-                    <a class="share-post-to-profile" href="#">
-                        <span class="fa fa-user" aria-hidden="true"></span>
-                    </a>
-                    <div class="button-group position-relative d-inline-block">
-                        <button class="btn dropdown-toggle" data-toggle="dropdown"><span class="fa fa-ellipsis-h"
-                                aria-hidden="true"></span></button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item share-embed" href="#" data-share-channel="embed">
-                                <span class="fa fa-fw fa-code" aria-hidden="true"></span>
-                                @lang('app.embed_story')
-                            </a>
-                            <a class="dropdown-item share-email" target="_blank" href="mailto:?subject={{ $story->share_text }}&body={{ $story->share_text }}%0A{{ $story->share_url }}">
-                                <span class="fa fa-fw fa-inbox" aria-hidden="true"></span>
-                                @lang('app.share_via_email')
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -125,7 +108,8 @@
             <div class="col-md-4">
                 <div class="card card-no-top">
                     <div class="card-body pt-3">
-                        <a href="#">@lang('app.report_this_story')</a>
+                        <a href="#" class="dropdown-item" data-toggle="modal" data-target="#myModalReport"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                            @lang('app.report_this_story')</a>
                     </div>
                 </div>
                 <div class="similar-stories card card-simple-header">
@@ -141,8 +125,8 @@
                                     <h4 class="story-title">{{ $recommended_story->title }}</h4>
                                     <small class="story-author">@lang('app.by') {{ $recommended_story->user->login_name }}</small>
                                     <div class="story-stats small mt-auto">
-                                        <span class="view-count"><i class="fa fa-eye"></i> {{ $recommended_story->views }}</span>
-                                        <span class="vote-count"><i class="fa fa-star"></i> {{ $recommended_story->views }}</span>
+                                        <span class="view-count"><i class="fa fa-eye"></i> {{ $recommended_story->views() }}</span>
+                                        <span class="vote-count"><i class="fa fa-star"></i> {{ $recommended_story->votes() }}</span>
                                         <span class="chapter-count"><i class="fa fa-list-ul"></i> {{ $recommended_story->chapters_count }}</span>
                                     </div>
                                 </div>
@@ -151,6 +135,29 @@
                         @endforeach
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal update-->
+    <div class="modal fade" id="myModalReport" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{ trans('tran.report') }}</h4>
+                </div>
+                {!! Form::open(['route' => ['user_report', $story->id], 'method' => 'POST']) !!}
+                <div class="modal-body">
+                    <div class="form-group">
+                        {!! Form::label(trans('tran.content'), '', ['class' => '']) !!}
+                        {!! Form::textarea('content', null, ['class' => 'form-control' . ($errors->has('address') ? ' is-invalid' : ''), 'required']) !!}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    {!! Form::button(trans('tran.cancel'), ['class' => 'btn btn-dark pull-left', 'data-dismiss' => 'modal', 'type' => 'button']) !!}
+                    {!! Form::button(trans('tran.create'), ['class' => 'btn btn-info pull-right', 'type' => 'submit']) !!}
+                </div>
+                {!! Form::close() !!}
             </div>
         </div>
     </div>

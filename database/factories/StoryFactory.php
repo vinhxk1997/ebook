@@ -3,9 +3,11 @@
 use Faker\Generator as Faker;
 
 $factory->define(App\Models\Story::class, function (Faker $faker) {
+    $name = $faker->text(30);
+
     return [
-        'title' => $faker->text(63),
-        'slug' => $faker->slug,
+        'title' => $name,
+        'slug' => str_slug($name),
         'summary' => $faker->paragraph(5),
         'is_recommended' => rand(0, 1),
         'status' => rand(0, 1)
