@@ -21,7 +21,6 @@ class CreateStoriesTable extends Migration
             $table->text('summary');
             $table->boolean('is_mature')->default(0);
             $table->boolean('status')->default(0);
-            $table->unsignedInteger('views')->default(0);
             $table->boolean('is_complete')->default(0);
             $table->boolean('is_recommended')->default(0);
             $table->timestamps();

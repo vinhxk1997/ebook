@@ -6,15 +6,18 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Story;
 use App\Repositories\StoryRepository;
+use App\Repositories\MetaRepository;
 use Carbon\Carbon;
 
 class StoryController extends Controller
 {
     protected $story;
+    protected $meta;
 
-    public function __construct(StoryRepository $story)
+    public function __construct(StoryRepository $story, MetaRepository $meta)
     {
         $this->story = $story;
+        $this->meta = $meta;
     }
 
     public function index()
@@ -27,12 +30,9 @@ class StoryController extends Controller
     public function show($id)
     {
         $story = $this->story->with(['user', 'chapters'])->findOrFail($id);
-        $cates;
-        if ($story->categories != null) {
-            $cates = $story->categories;
-        }
-
-        $tags;
+        $current_cate = $story->category[0];
+        $cates = $this->meta->all();
+        $tags = null;
         if ($story->tags != null) {
             $tags = $story->tags;
         }
@@ -40,7 +40,7 @@ class StoryController extends Controller
         $createAt = Carbon::parse($story['created_at']);
         $updateAt = Carbon::parse($story['updated_at']);
 
-        return view('backend.stories.information', compact('story', 'createAt', 'updateAt', 'cates', 'tags'));
+        return view('backend.stories.information', compact('story', 'createAt', 'updateAt', 'cates', 'current_cate', 'tags'));
     }
 
     public function update($id, Request $request)
@@ -49,11 +49,15 @@ class StoryController extends Controller
         $mature = ($request->get('mature') != true) ? 0 : 1;
         $status = ($request->get('status') != true) ? 0 : 1;
         $recommended = ($request->get('recommended') != true) ? 0 : 1;
+        $cate = $request->input('cate');
+
         $story->update([
             'is_mature' => $mature,
             'status' => $status,
             'is_recommended' => $recommended,
         ]);
+
+        $story->metas()->sync($cate);
 
         return redirect()->back()->with('status', __('tran.story_update_status'));
     }

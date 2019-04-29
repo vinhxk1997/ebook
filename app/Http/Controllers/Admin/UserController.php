@@ -54,8 +54,8 @@ class UserController extends Controller
     {
         $user = $this->userRepo;
         $user->create([
-            'full_name' => $request->get('name'),
-            'login_name' => $request->get('loginname'),
+            'full_name' => strip_tags($request->get('name')),
+            'login_name' => strip_tags($request->get('loginname')),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
             'role' => ($request->get('role') != 'admin') ? 0 : 1,
@@ -100,8 +100,8 @@ class UserController extends Controller
     public function update($id, UserUpdateRequest $request)
     {
         $user = $this->userRepo->findOrFail($id);
-        $user->full_name = $request->get('name');
-        $user->login_name = $request->get('loginname');
+        $user->full_name = strip_tags($request->get('name'));
+        $user->login_name = strip_tags($request->get('loginname'));
         $user->email = $request->get('email');
         $password = $request->get('password');
         if ($password != '') {

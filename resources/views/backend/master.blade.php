@@ -33,10 +33,10 @@
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-        <a class="navbar-brand mr-1" href="{{ route('admin') }}">eBook</a>
+        <a class="navbar-brand mr-1" href="{{ route('admin') }}"><h2>Story Reader</h2></a>
 
         <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-            <i class="fas fa-bars"></i>
+            <i class="fas fa-bars fa-2x"></i>
         </button>
 
         <!-- Navbar Search -->
@@ -50,7 +50,7 @@
             <li class="nav-item dropdown no-arrow mx-2">
                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-language"></i>
+                    <i class="fas fa-language fa-3x"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
                     <a class="dropdown-item" href="{!! route('change-language', ['en']) !!}">{{ trans('tran.english') }}</a>
@@ -60,7 +60,7 @@
             <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-user-circle fa-fw"></i>
+                    <i class="fas fa-user-circle fa-3x"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">{{ trans('tran.logout') }}</a>
@@ -134,15 +134,6 @@
         <div id="content-wrapper">
 
             <div class="container-fluid">
-
-                <!-- Breadcrumbs-->
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="{{ route('admin') }}">{{ trans('tran.dashboard') }}</a>
-                    </li>
-                    <li class="breadcrumb-item active">{{ trans('tran.dashboard') }}</li>
-                </ol>
-
                 <!-- Page Content -->
                 @yield('content')
 
@@ -183,7 +174,7 @@
                 <div class="modal-body">{{ trans('tran.logout_mes') }}</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">{{ trans('tran.cancel') }}</button>
-                    <a class="btn btn-primary" href="{{ route('home') }}">{{ trans('tran.logout') }}</a>
+                    <a class="btn btn-primary" href="{{ route('logout') }}">{{ trans('tran.logout') }}</a>
                 </div>
             </div>
         </div>

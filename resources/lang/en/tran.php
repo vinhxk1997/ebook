@@ -71,6 +71,7 @@ return [
     'user_create_status' => 'The user has been created!',
     'meta_update_status' => 'The meta has been updated!',
     'meta_delete_status' => 'The meta has been deleted!',
+    'meta_delete_error' => 'Cannot delete the meta has been used',
     'meta_create_status' => 'The meta has been created!',
     'story_delete_status' => 'The story has been deleted!',
     'story_update_status' => 'The story has been updated!',
@@ -93,4 +94,5 @@ return [
     'report_update_status' => 'Report has been updated!',
     'follow_notify' => ' followed you',
     'story_notify' => ' published new story',
+    'read' => 'Read'
 ];

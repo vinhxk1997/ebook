@@ -20,7 +20,7 @@
                         <th>{{ trans('tran.author') }}</th>
                         <th>{{ trans('tran.title') }}</th>
                         <th>{{ trans('tran.mature') }}</th>
-                        <th>{{ trans('tran.status') }}</th>
+                        <th>{{ trans('tran.published') }}</th>
                         <th>{{ trans('tran.views') }}</th>
                         <th>{{ trans('tran.completed') }}</th>
                         <th>{{ trans('tran.recommended') }}</th>
@@ -35,8 +35,8 @@
                         <td><a class="btn btn-light" data-toggle="tooltip" data-placement="right" title="{{ trans('tran.tip_detail') }}" href="{{ route('story_detail', ['id' => $story->id]) }}">{!! $story->title !!}</a></td>
                         <td>{!! ($story->is_mature > 0) ? 'no' : 'yes' !!}</td>
                         <td>{!! ($story->status > 0) ? 'no' : 'yes' !!}</td>
-                        <td>{!! $story->views !!}</td>
-                        <td>{!! ($story->is_completed > 0) ? 'no' : 'yes' !!}</td>
+                        <td>{!! $story->views() !!}</td>
+                        <td>{!! ($story->is_completed > 0) ? 'yes' : 'no' !!}</td>
                         <td>{!! ($story->is_recommended < 1) ? 'no' : 'yes' !!}</td>
                         <td class="text-center"><a class="btn btn-secondary" href="{{ route('story_info', ['id' => $story->id]) }}"><i class="fas fa-info-circle"></i> {{ trans('tran.information') }}</a>
                         <a onclick="return confirm('{{ trans('tran.delete_story') }}')"

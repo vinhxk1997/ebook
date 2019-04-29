@@ -21,13 +21,10 @@ class DataSeeder extends Seeder
         // metas
         $meta_data = [];
         foreach ($stories as $story) {
-            $story_metas = $metas->random(5);
-            foreach ($story_metas as $meta) {
-                $meta_data[] = [
-                    'meta_id' => $meta->id,
-                    'story_id' => $story->id,
-                ];
-            }
+            $meta_data[] = [
+                'meta_id' => $metas->random(1)[0]->id,
+                'story_id' => $story->id,
+            ];
         }
         DB::table('meta_story')->insert($meta_data);
         // archives

@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryFormRequest;
 use App\Repositories\MetaRepository;
-use Illuminate\Support\Facades\Lang;
-
+use App\Models\Story;
 class CategoryController extends Controller
 {
     protected $cateRepo;
@@ -63,9 +62,15 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
+        $status = __('tran.meta_delete_error');
         $meta = $this->cateRepo->findOrFail($id);
-        $meta->delete();
+        $story = $meta->stories()->count();
+        if ($story == 0) {
+            $meta->delete();
+            $status = __('tran.meta_delete_status');
+            return redirect('/admin/categories')->with('status', $status);
+        }
         
-        return redirect('/admin/categories')->with('status', __('tran.meta_delete_status'));
+        return redirect('/admin/categories')->with('error', $status);
     }
 }

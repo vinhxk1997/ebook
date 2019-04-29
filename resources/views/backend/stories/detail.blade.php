@@ -20,7 +20,7 @@
                         <th>{{ trans('tran.story') }}</th>
                         <th>{{ trans('tran.title') }}</th>
                         <th>Slug</th>
-                        <th>{{ trans('tran.completed') }}</th>
+                        <th>{{ trans('tran.published') }}</th>
                         <th>{{ trans('tran.create_at') }}</th>
                         <th>{{ trans('tran.update_at') }}</th>
                         <th>{{ trans('tran.action') }}</th>

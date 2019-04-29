@@ -1457,3 +1457,19 @@ a {
     max-height: 200px;
     overflow-x: hidden;
 }
+.box-category tbody tr {
+    height: 70px;
+    text-align: center;
+}
+.box-review tbody tr{
+    height: 50px;
+}
+.box-review thead{
+    text-align: center;
+}
+.reviewbox {
+    background-color: #ccccaa;
+}
+.reviewbox h3{
+    text-align: center;
+}

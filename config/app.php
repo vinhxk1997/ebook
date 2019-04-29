@@ -215,6 +215,7 @@ return [
         /*
          * Application Service Providers...
          */
+        CyrildeWit\EloquentViewable\EloquentViewableServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,

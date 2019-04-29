@@ -17,7 +17,7 @@
         </div>
         <div class="stats my-auto col-3">
             <div class="row">
-                <div class="col-sm-4"><i class="fa fa-eye mr-2"></i> {{ $chapter->views }}</div>
+                <div class="col-sm-4"><i class="fa fa-eye mr-2"></i> {{ views($chapter)->count() }}</div>
                 <div class="col-sm-4"><i class="fa fa-star mr-2"></i> {{ $chapter->votes_count }}</div>
                 <div class="col-sm-4"><i class="fa fa-comment mr-2"></i> {{ $chapter->comments_count }}</div>
             </div>

@@ -71,6 +71,7 @@ return [
     'user_create_status' => 'Thêm người dùng thành công!',
     'meta_update_status' => 'Cập nhật danh mục thành công!',
     'meta_delete_status' => 'Danh mục đã bị xoá!',
+    'meta_delete_error' => 'Không thể xoá danh mục đã được sử  dụng',
     'meta_create_status' => 'Thêm danh mục thành công!',
     'story_delete_status' => 'Truyện đã bị xoá!!',
     'story_update_status' => 'Cập nhật truyện thành công!',
@@ -95,4 +96,5 @@ return [
     'comment_notify' =>' đã bình luận sách của bạn',
     'follow_notify' =>' đã theo dõi bạn',
     'story_notify' => ' đã hoàn thành truyện mới',
+    'read' => 'Đọc'
 ];

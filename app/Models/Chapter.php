@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use CyrildeWit\EloquentViewable\Viewable;
+use CyrildeWit\EloquentViewable\Contracts\Viewable as ViewableContract;
+use Iatstuti\Database\Support\CascadeSoftDeletes;
 
-class Chapter extends Model
+class Chapter extends Model implements ViewableContract
 {
-    use SoftDeletes;
+    use SoftDeletes, Viewable, CascadeSoftDeletes;
 
     const STATUS_DRAFT = 0;
     const STATUS_PUBLISHED = 1;
@@ -24,6 +27,11 @@ class Chapter extends Model
         'deteted_at',
     ];
 
+    protected $cascadeDeletes = [
+        'comments',
+        'votes'
+    ];
+    
     public function scopePublished($q)
     {
         return $q->where('chapters.status', self::STATUS_PUBLISHED);

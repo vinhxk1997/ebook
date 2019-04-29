@@ -55,6 +55,7 @@
                             </div>
                             <div class="form-group">
                                 {!! Form::label('tags', __('app.tags')) !!}
+                                <span>(Tên tag ngăn cách nhau bởi dấu ",")</span>
                                 {!! Form::text('story_tags', $story->tags, [
                                     'class' => 'form-control',
                                     'id' => 'tags',
@@ -71,17 +72,17 @@
                             </div>
                             <div class="form-group">
                                 <div class="custom-control custom-control-reverse custom-switch">
-                                {!! Form::checkbox('story_rating', $story->is_mature, false, [
+                                {!! Form::checkbox('story_mature', $story->is_mature, ($story->is_mature == 1) ? true :false, [
                                     'class' => 'custom-control-input',
-                                    'id' => 'rating',
+                                    'id' => 'mature',
                                 ]) !!}
-                                {!! Form::label('rating', __('app.mature'), ['class' => 'custom-control-label']) !!}
+                                {!! Form::label('mature', __('app.mature'), ['class' => 'custom-control-label']) !!}
                                 </div>
                             </div>
                             @if ($is_edit)
                             <div class="form-group">
                                 <div class="custom-control custom-control-reverse custom-switch">
-                                {!! Form::checkbox('story_completed', $story->is_complete, false, [
+                                {!! Form::checkbox('story_completed', $story->is_complete, ($story->is_complete == 1) ? true :false, [
                                     'class' => 'custom-control-input',
                                     'id' => 'completed',
                                 ]) !!}
