@@ -13,7 +13,7 @@
         </div>
         @endif
         <div class="table-responsive">
-            <table class="table table-bordered bookTable" id="dataTable">
+            <table class="table table-bordered bookTable">
                 <thead>
                     <tr>
                         <th>{{ trans('tran.id') }}</th>
@@ -40,6 +40,11 @@
                 @endforeach
                 </tbody>
             </table>
+            <div style="float;">
+            <div style="float: left;">Show {{ ($comments->currentPage()-1)*$comments->perPage() +1 }} to {{ $comments->currentPage()*$comments->perPage() }} of
+             {{ $comments->total() }}</div>
+            <div style="float:right">{{ $comments->links() }}</div>
+            </div>
         </div>
     </div>
 </div>

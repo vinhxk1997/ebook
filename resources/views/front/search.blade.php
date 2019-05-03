@@ -4,12 +4,12 @@
 <div class="stories">
     <div class="container">
         <div class="header py-3">
-            <h1>{{ __('app.search') }}{{ $keyword ? ': ' . $keyword : '' }}</h1>
+            <h1>{{ __('app.search') }}{{ $keyword ? ': ' . $keyword : '' }}&nbsp({{$count}})</h1>
         </div>
         <div class="stories">
             <div class="row" id="searchResult">
             @foreach ($stories as $story)
-            @include('front.items.meta_story', ['story' => $story])
+            @include('front.items.story', ['story' => $story])
             @endforeach
             </div>
             @if ($stories->hasPages())

@@ -66,7 +66,7 @@
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="comments-tab" data-toggle="tab" href="#comments"
-                                        role="tab" aria-controls="comments" aria-selected="true">@lang('app.recent_comments')</a>
+                                        role="tab" aria-controls="comments" aria-selected="true">@lang('tran.review')</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="chapters-tab" data-toggle="tab" href="#chapters" role="tab"
@@ -76,19 +76,21 @@
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="comments" role="tabpanel" aria-labelledby="comments-tab">
                                     <ul class="list-group list-group-flush list-comments">
-                                        @foreach ($recent_comments as $comment)
+                                        @foreach ($story->reviews as $review)
                                         <li class="list-group-item">
                                             <div class="header clearfix">
                                                 <div class="avatar avatar-sm">
-                                                    <img src="{{ get_avatar($comment->user) }}" />
+                                                    <img src="{{ get_avatar($review->user) }}" />
                                                 </div>
                                                 <div class="info">
-                                                    <a class="username" href="{{ route('user_about', ['user' => $comment->user->login_name]) }}">{{ $comment->user->full_name }}</a> on <a class="chapername"
-                                                        href="{{ route('read_chapter', ['id' => $comment->chapter->id,  'slug' => $comment->chapter->slug]) }}">{{ $comment->chapter->title }}</a>
-                                                    <small>{{ $comment->created_at->format(__('app.d_m_y_format')) }}</small>
+                                                    <a class="username" href="{{ route('user_about', ['user' => $review->user->login_name]) }}">{{ $review->user->full_name }}</a>
+                                                    <small>{{ $review->created_at->format(__('app.d_m_y_format')) }}</small>
                                                 </div>
                                             </div>
-                                            <div class="content">{{ $comment->content }}</div>
+                                            <details>
+                                                <summary>{{ $review->title }}</summary>
+                                                <div class="content">{{ $review->content }}</div>
+                                            </details>
                                         </li>
                                         @endforeach
                                     </ul>
@@ -110,6 +112,10 @@
                     <div class="card-body pt-3">
                         <a href="#" class="dropdown-item" data-toggle="modal" data-target="#myModalReport"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>
                             @lang('app.report_this_story')</a>
+                    </div>
+                    <div class="card-body pt-3">
+                        <a href="#" class="dropdown-item" data-toggle="modal" data-target="#myModalReview"><i class="fa fa-star" aria-hidden="true"></i>
+                            @lang('tran.review')</a>
                     </div>
                 </div>
                 <div class="similar-stories card card-simple-header">
@@ -150,7 +156,34 @@
                 <div class="modal-body">
                     <div class="form-group">
                         {!! Form::label(trans('tran.content'), '', ['class' => '']) !!}
-                        {!! Form::textarea('content', null, ['class' => 'form-control' . ($errors->has('address') ? ' is-invalid' : ''), 'required']) !!}
+                        {!! Form::textarea('content', null, ['class' => 'form-control' . ($errors->has('address') ? ' is-invalid' : ''), 'autofocus', 'required']) !!}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    {!! Form::button(trans('tran.cancel'), ['class' => 'btn btn-dark pull-left', 'data-dismiss' => 'modal', 'type' => 'button']) !!}
+                    {!! Form::button(trans('tran.create'), ['class' => 'btn btn-info pull-right', 'type' => 'submit']) !!}
+                </div>
+                {!! Form::close() !!}
+            </div>
+        </div>
+    </div>
+    <!-- Modal review-->
+    <div class="modal fade" id="myModalReview" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{ trans('tran.report') }}</h4>
+                </div>
+                {!! Form::open(['route' => ['user_review', $story->id], 'method' => 'POST']) !!}
+                <div class="modal-body">
+                    <div class="form-group">
+                        {!! Form::label(trans('tran.title'), '', ['class' => '']) !!}
+                        {!! Form::text('title', null, ['class' => 'form-control', 'autofocus', 'required']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label(trans('tran.content'), '', ['class' => '']) !!}
+                        {!! Form::textarea('content', null, ['class' => 'form-control', 'required']) !!}
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -162,4 +195,11 @@
         </div>
     </div>
 </div>
+<script>
+    var msg = '{{Session::get('success')}}';
+    var exist = '{{Session::has('success')}}';
+    if(exist){
+        alert(msg);
+    }
+</script>
 @endsection

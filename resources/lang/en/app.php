@@ -21,7 +21,7 @@ return [
     'continue_reading' => 'Continue Reading',
     'continue_reading_description' => 'Find more in your library',
     'continue_reading_next_chapter' => 'Continue reading next chapter',
-    'conversations' => 'Conversations',
+    'conversations' => 'Profile',
     'create' => 'Create',
     'create_a_reading_list' => 'Create a reading list',
     'current_reads' => 'Current reads',

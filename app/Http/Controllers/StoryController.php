@@ -5,19 +5,23 @@ namespace App\Http\Controllers;
 use App\Repositories\MetaRepository;
 use App\Repositories\StoryRepository;
 use App\Repositories\UserRepository;
+use App\Repositories\ReviewRepository;
 use Illuminate\Http\Request;
+use App\Http\Requests\ReviewFormRequest;
 
 class StoryController extends Controller
 {
     protected $story;
     protected $meta;
     protected $user;
+    protected $review;
 
-    public function __construct(StoryRepository $story, MetaRepository $meta, UserRepository $user)
+    public function __construct(StoryRepository $story, MetaRepository $meta, UserRepository $user, ReviewRepository $review)
     {
         $this->story = $story;
         $this->meta = $meta;
         $this->user = $user;
+        $this->review = $review;
     }
 
     public function story($id, Request $request)
@@ -50,6 +54,9 @@ class StoryController extends Controller
                 return $query->published()->withCount('votes')->orderBy('id', 'asc');
             },
             'user',
+            'reviews' => function ($q) {
+                return $q->with('user')->take(5);
+            }
         ])->withCount(['metas', 'chapters' => function ($q) {
             $q->published();
         }])->findOrFail($id);
@@ -118,5 +125,26 @@ class StoryController extends Controller
         $story = $this->story->findOrFail($id);
 
         return json_encode($story);
+    }
+
+    public function review($id, ReviewFormRequest $request)
+    {
+        $story = $this->story->find($id);
+        if ($story != null) {
+            $content = strip_tags($request->input('content'));
+            $title = strip_tags($request->input('title'));
+            $slug = str_slug($title);
+            if (auth()->user() && $story != null) {
+                $this->review->create([
+                    'user_id' => auth()->user()->id,
+                    'story_id' => $story->id,
+                    'title' => $title,
+                    'slug' => $slug,
+                    'content' => $content
+                ]);
+            }
+        }
+
+        return redirect()->back()->with('success', "cam on ban da danh gia truyen");
     }
 }

@@ -30,7 +30,7 @@ class DataSeeder extends Seeder
         // archives
         $archive_data = [];
         foreach ($users as $user) {
-            $archive_stories = $stories->random(5);
+            $archive_stories = $stories->random(10);
             foreach ($archive_stories as $story) {
                 $archive_data[] = [
                     'user_id' => $user->id,
@@ -70,21 +70,10 @@ class DataSeeder extends Seeder
         $comment_data = [];
         foreach ($chapters as $chapter) {
             if (rand(0, 1)) {
-                $comment_data = array_merge($comment_data, factory(App\Models\Comment::class, rand(2, 5))->make([
+                $comment_data = array_merge($comment_data, factory(App\Models\Comment::class, rand(1, 3))->make([
                     'user_id' => $users->random(1)->first()->id,
                     'commentable_type' => App\Models\Chapter::class,
                     'commentable_id' => $chapter->id,
-                    'created_at' => now()->subDays(4),
-                    'updated_at' => now()
-                ])->toArray());
-            }
-        }
-        foreach ($reviews as $review) {
-            if (rand(0, 1)) {
-                $comment_data = array_merge($comment_data, factory(App\Models\Comment::class, rand(4, 9))->make([
-                    'user_id' => $users->random(1)->first()->id,
-                    'commentable_type' => App\Models\Review::class,
-                    'commentable_id' => $review->id,
                     'created_at' => now()->subDays(4),
                     'updated_at' => now()
                 ])->toArray());

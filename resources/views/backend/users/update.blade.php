@@ -14,7 +14,7 @@
         <div class="form-group row">
         {!! Form::label('name', trans('tran.name'), ['class' => 'col-md-4 col-form-label text-md-right']) !!}
         <div class="col-md-3">
-            {!! Form::text('name', $user->full_name, ['class' => 'form-control' . ($errors->has('name') ? 'is-invalid' : ''), 'autofocus']) !!}
+            {!! Form::text('name', $user->full_name, ['class' => 'form-control' . ($errors->has('name') ? ' is-invalid' : ''), 'autofocus']) !!}
             @if ($errors->has('name'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('name') }}</strong>
@@ -25,7 +25,7 @@
         <div class="form-group row">
             {!! Form::label('address', trans('tran.address'), ['class' => 'col-md-4 col-form-label text-md-right']) !!}
             <div class="col-md-4">
-                {!! Form::textarea('address', ($user->profile == null) ? '' : $user->profile->address, ['class' => 'form-control' . ($errors->has('address') ? ' is-invalid' : '')]) !!}
+                {!! Form::textarea('address', ($user->profile == null) ? '' : $user->profile->address, ['class' => 'form-control' . ($errors->has('address') ? ' is-invalid' : ''), 'rows' => '3']) !!}
             </div>
             @if ($errors->has('address'))
             <span class="invalid-feedback" role="alert">
@@ -68,7 +68,7 @@
         <div class="form-group row">
             {!! Form::label('loginname', trans('tran.loginname'), ['class' => 'col-md-4 col-form-label text-md-right']) !!}
             <div class="col-md-4">
-                {!! Form::text('loginname', $user->login_name, ['class' => 'form-control' . ($errors->has('loginname') ? 'is-invalid' : '')]) !!}
+                {!! Form::text('loginname', $user->login_name, ['class' => 'form-control' . ($errors->has('loginname') ? ' is-invalid' : '')]) !!}
             </div>
             @if ($errors->has('loginname'))
             <span class="invalid-feedback" role="alert">
@@ -79,7 +79,7 @@
         <div class="form-group row">
             {!! Form::label('email', 'Email', ['class' => 'col-md-4 col-form-label text-md-right']) !!}
             <div class="col-md-4">
-                {!! Form::email('email', $user->email, ['class' => 'form-control' . ($errors->has('email') ? 'is-invalid' : '')]) !!}
+                {!! Form::email('email', $user->email, ['class' => 'form-control' . ($errors->has('email') ? ' is-invalid' : '')]) !!}
                 @if ($errors->has('email'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('email') }}</strong>
@@ -90,7 +90,7 @@
         <div class="form-group row">
             {!! Form::label('pasword', trans('tran.password'), ['class' => 'col-md-4 col-form-label text-md-right']) !!}
             <div class="col-md-4">
-                {!! Form::password('password', ['class' => 'form-control' . ($errors->has('password') ? 'is-invalid' : '')]) !!}
+                {!! Form::password('password', ['class' => 'form-control' . ($errors->has('password') ? ' is-invalid' : '')]) !!}
                 @if ($errors->has('password'))
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $errors->first('password') }}</strong>
@@ -101,7 +101,7 @@
         <div class="form-group row">
             {!! Form::label('password-confirm', trans('tran.pass_confirm'), ['class' => 'col-md-4 col-form-label text-md-right']) !!}
             <div class="col-md-4">
-                {!! Form::password('password_confirmation', ['class' => 'form-control' . ($errors->has('password') ? 'is-invalid' : '')]) !!}
+                {!! Form::password('password_confirmation', ['class' => 'form-control' . ($errors->has('password') ? ' is-invalid' : '')]) !!}
             </div>
         </div>
         <div class="form-group row">
@@ -121,7 +121,7 @@
         <div class="form-group row">
             {!! Form::label('about', trans('tran.aboutme'), ['class' => 'col-md-4 col-form-label text-md-right']) !!}
             <div class="col-md-4">
-                {!! Form::textarea('about', ($user->profile == null) ? '' : $user->profile->about, ['class' => 'form-control' . ($errors->has('about') ? 'is-invalid' : '')]) !!}
+                {!! Form::textarea('about', ($user->profile == null) ? '' : $user->profile->about, ['class' => 'form-control' . ($errors->has('about') ? ' is-invalid' : ''), 'rows' => '3']) !!}
             </div>
             @if ($errors->has('about'))
             <span class="invalid-feedback" role="alert">

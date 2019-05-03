@@ -90,7 +90,7 @@
                 </div>
                 <div class="mr-5">11 {{ trans('tran.banner') }}</div>
             </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
+            <a class="card-footer text-white clearfix small z-1" href="{{ route('banners') }}">
                 <span class="float-left">{{ trans('tran.view_detail') }}</span>
                 <span class="float-right">
                     <i class="fas fa-angle-right"></i>

@@ -96,5 +96,13 @@ return [
     'comment_notify' =>' đã bình luận sách của bạn',
     'follow_notify' =>' đã theo dõi bạn',
     'story_notify' => ' đã hoàn thành truyện mới',
-    'read' => 'Đọc'
+    'read' => 'Đọc',
+    'newpassword' => 'Mật Khẩu Mới',
+    'comment_notify' => 'bình luận truyện của bạn',
+    'reply_notify' => 'trả lời bình luận của bạn',
+    'banner_name' => 'Tên Niểu Ngữ',
+    'place' => 'Vị Trí',
+    'url' => "URL",
+    'image' => 'Hình Ảnh',
+    'banner_update_status' => 'Cập nhật biểu ngữ thành công',
 ];

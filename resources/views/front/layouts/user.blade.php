@@ -22,9 +22,18 @@
                     <p>{{ $user->save_lists_count }}</p>
                     <p>{{ trans_choice('app.reading_lists_choice', $user->save_lists_count) }}</p>
                 </div>
-                <div class="col-4 on-followers" data-toggle="tooltip" data-placement="top" title="{{ trans_choice('app.followers_count', $user->followers_count) }}">
-                    <p class="followers-count">{{ $user->followers_count }}</p>
-                    <p>{{ trans_choice('app.followers_choice', $user->followers_count) }}</p>
+                <div class="col-4 on-followers" data-placement="top">
+                    <div data-toggle="dropdown">
+                        <p class="followers-count">{{ $user->followers_count }}</p>
+                        <p>{{ trans_choice('app.followers_choice', $user->followers_count) }}</p>
+                    </div>
+                    <div class="dropdown-menu scrollable-menu">
+                        @foreach ($user->followers as $follow_user)
+                            <a class="dropdown-item" href="{{ route('user_about', ['user' => $follow_user->login_name]) }}">
+                                {{ $follow_user->full_name }}
+                            </a>
+                        @endforeach
+                    </div>
                 </div>
             </div>
             <div id="page-navigation" class="sub-navigation">
