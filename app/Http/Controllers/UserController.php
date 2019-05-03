@@ -6,6 +6,8 @@ use App\Repositories\SaveListRepository;
 use App\Repositories\StoryRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use App\Models\UserProfile;
+use App\Http\Requests\UserFrontUpdateRequest;
 use Auth, DB, View;
 
 class UserController extends Controller
@@ -105,10 +107,48 @@ class UserController extends Controller
     {
         return view('front.user_conversations');
     }
+    public function updateUser(UserFrontUpdateRequest $request)
+    {
+        if (auth()->user()) {
+            $user = auth()->user();
+            $user->full_name = strip_tags($request->get('name'));
+            $password = $request->get('password');
+            if ($password != '') {
+                $user->password = Hash::make($password);
+            }
+            if ($request->hasFile('avatar_file')) {
+                $avatar = uploadFile(
+                    $request->file('avatar_file'),
+                    config('app.avatar_path'),
+                    config('app.avatar_sizes')
+                );
+                $user->avatar = $avatar;
+            }
+
+            if ($request->hasFile('cover_image')) {
+                $user_cover = uploadFile(
+                    $request->file('cover_image'),
+                    config('app.user_cover_path'),
+                    config('app.user_cover_sizes')
+                );
+                $user->cover_image = $user_cover;
+            }
+            $user->save();
+            $user->profile()->updateOrCreate(
+                ['user_id' => $user->id],
+                [
+                    'address' => $request->get('address'),
+                    'about' => $request->get('about'),
+                ]
+            );
+        }
+        
+        return redirect()->back()->with('status', __('tran.user_update_status'));
+    }
 
     public function following()
     {
-        $followings = $this->user
+        $followings = auth()->user()
             ->selectRaw('
                 users.*,
                 follows.followed_user_id as pivot_followed_user_id,

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scale=0, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>@yield('title', config('app.name'))</title>
@@ -17,7 +17,7 @@
 <body>
     <nav class="navbar navbar-expand fixed-top navbar-dark bg-dark" id="topNavbar">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('home') }}">eBook</a>
+            <a class="navbar-brand" href="{{ route('home') }}">Story Reader</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false">
                 <span class="navbar-toggler-icon"></span>
@@ -35,6 +35,9 @@
                                 <a class="dropdown-item" href="{{ route('meta', ['slug' => $category->slug]) }}"> {{ $category->name }}</a>
                             @endforeach
                         </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('reviews') }}">@lang('tran.review')</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('works') }}">@lang('app.create')</a>
@@ -68,9 +71,9 @@
                     <ul class="dropdown-menu dropdown-menu-right scrollable-menu" aria-labelledby="notificationsMenu" id="notificationsMenu">                        
                     @if ($notifications->count() > 0)
                         @foreach ($notifications as $notification)
-                            @if ($notification->action == 'post')
+                            @if ($notification->action == 'comment' || $notification->action == 'reply')
                             <li class="dropdown-item notification">
-                                <a href="{{route('notify', ['id' => $notification->notifiable_id]) }}" class="notify-item">{{ $notification->data }}
+                                <a href="{{route('notify', ['id' => $notification->notifiable_id]) }}/#comments" class="notify-item">{{ $notification->data }}
                                     <p>{{ $notification->created_at->diffForHumans() }}</p>
                                 </a>
                             </li>
@@ -135,9 +138,6 @@
                     </div>
                 </li>
                 <li><a href="#" rel="nofollow">@lang('app.about_us')</a></li>
-                <li><a href="#" rel="nofollow">@lang('app.terms')</a></li>
-                <li><a href="#" rel="nofollow">@lang('app.privacy')</a></li>
-                <li><a href="#">@lang('app.help')</a></li>
                 <li>© {{ now()->format('Y') }} {{ config('app.name') }}</li>
             </ul>
         </div>

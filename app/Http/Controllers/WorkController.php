@@ -183,8 +183,9 @@ class WorkController extends Controller
         ];
     }
 
-    public function deleteStory(Story $story)
+    public function deleteStory($id)
     {
+        $story = $this->story->findOrFail($id);
         if (! Auth::user()->can('delete', $story)) {
             abort(403);
         }
@@ -195,7 +196,7 @@ class WorkController extends Controller
                 config('app.story_cover_sizes')
             );
         }
-        $story->forceDelete();
+        $story->delete();
 
         return response()->json([
             'success' => true,
@@ -282,8 +283,22 @@ class WorkController extends Controller
                 }
             }
             $story->save();
+        } elseif ($chapter->status && $story->is_published) {
+            if (Auth::check()) {
+                $users = auth()->user()->followers()->get();
+                foreach ($users as $user) {
+                    $this->notify->create([
+                        'user_id' => $user->id,
+                        'notifier_id' => Auth::id(),
+                        'notifiable_id' => $story->id,
+                        'notifiable_type' => $this->story->getModelClass(),
+                        'action' => 'create',
+                        'data' => Auth::user()->full_name . __('tran.story_notify'),
+                    ]);
+                }
+            }
         }
-        
+
         return response()->json([
             'success' => true
         ]);

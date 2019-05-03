@@ -8,6 +8,6 @@ $factory->define(App\Models\Review::class, function (Faker $faker) {
     return [
         'title' => $name,
         'slug' => str_slug($name),
-        'content' => $faker->paragraph,
+        'content' => $faker->text(1000),
     ];
 });

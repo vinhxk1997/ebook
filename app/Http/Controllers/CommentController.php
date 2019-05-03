@@ -44,7 +44,7 @@ class CommentController extends Controller
                     'notifier_id' => Auth::id(),
                     'notifiable_id' => $comment->commentable_id,
                     'notifiable_type' => $comment->commentable_type,
-                    'action' => 'post',
+                    'action' => 'comment',
                     'data' => Auth::user()->full_name . __('tran.comment_notify'),
                 ]);
             }
@@ -64,6 +64,16 @@ class CommentController extends Controller
                 'commentable_id' => $comment->commentable_id,
                 'content' => $request->comment_text,
             ]);
+            if (auth()->user()->id != $comment->user_id) {
+                $this->notify->create([
+                    'user_id' => $comment->user_id,
+                    'notifier_id' => Auth::id(),
+                    'notifiable_id' => $comment->commentable_id,
+                    'notifiable_type' => $comment->commentable_type,
+                    'action' => 'reply',
+                    'data' => Auth::user()->full_name . __('tran.reply_notify'),
+                ]);
+            }
 
             return view('front.items.reply', compact('reply'))->render();
         }

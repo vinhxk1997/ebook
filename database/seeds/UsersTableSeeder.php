@@ -33,7 +33,7 @@ class UsersTableSeeder extends Seeder
         ]);
         factory(App\Models\User::class, 25)->create()->each(function ($user) {
             $user->profile()->save(factory(App\Models\UserProfile::class)->make());
-            factory(App\Models\Story::class, rand(1, 4))->create([
+            factory(App\Models\Story::class, rand(10, 20))->create([
                 'user_id' => $user->id,
             ]);
             factory(App\Models\SaveList::class, rand(1, 4))->create([

@@ -13,6 +13,7 @@
 
 // Home
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/reviews', 'HomeController@getReivew')->name('reviews');
 Route::get('/crawl', 'CrawlController@index');
 Route::get('/new', 'CrawlController@new');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
@@ -36,6 +37,8 @@ Route::get('/lists/{list}', 'LibraryController@list')->name('list'); // save lis
 Route::group(['middleware' => 'auth'], function () {
     //report
     Route::post('/story/{id}/report', 'ChapterController@report')->name('user_report');
+    //review
+    Route::post('/story/{id}/review', 'StoryController@review')->name('user_review');
     // create story
     Route::get('/works', 'WorkController@index')->name('works');
     Route::group(['middleware' => 'can:create,App\Models\Story'], function () {
@@ -44,7 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
     Route::get('/works/{story_id}', 'WorkController@editStoryForm')->name('story_edit');
     Route::post('/works/{story}', 'WorkController@editStory');
-    Route::delete('/works/{story}', 'WorkController@deleteStory')->name('story_delete');
+    Route::delete('/works/{story_id}', 'WorkController@deleteStory')->name('story_delete');
     Route::patch('/works/{story}', 'WorkController@updateStory')->name('story_unpublish');
     Route::post('/works/{story}/create_chapter', 'WorkController@createChapter')->name('chapter_create');
     Route::get('/works/{story}/write/{chapter}', 'WorkController@writeChapterForm')->name('chapter_write');
@@ -89,6 +92,7 @@ Route::group(['middleware' => 'auth'], function () {
 // profile
 Route::get('/user/{user}', 'UserController@index')->name('user_about');
 Route::get('/user/{user}/activity', 'UserController@conversations')->name('user_conversations');
+Route::post('/user/{user}/activity', 'UserController@updateUser');
 Route::get('/user/{user}/following', 'UserController@following')->name('user_following');
 
 // Social login
@@ -132,6 +136,10 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'admin'], function () {
     Route::get('admin/report/update/{id}', 'ReportController@edit')->name('update_report');
     Route::post('admin/report/update/{id}', 'ReportController@update');
     Route::get('admin/report/delete/{id}', 'ReportController@destroy')->name('delete_report');
+
+    Route::get('admin/banners', 'BannerController@index')->name('banners');
+    Route::post('admin/banner/update/{id}', 'BannerController@update')->name('update_banner');
+    Route::get('admin/banner/{id}', 'BannerController@show')->name('show');
 });
 
 Route::group(['middleware' => 'locale'], function() {

@@ -94,5 +94,13 @@ return [
     'report_update_status' => 'Report has been updated!',
     'follow_notify' => ' followed you',
     'story_notify' => ' published new story',
-    'read' => 'Read'
+    'read' => 'Read',
+    'newpassword' => 'New Password',
+    'comment_notify' => ' Comment in your story',
+    'reply_notify' => ' Replies your comment',
+    'banner_name' => 'Banner Name',
+    'place' => 'Place',
+    'url' => "URL",
+    'image' => 'Image',
+    'banner_update_status' => 'update banner success',
 ];

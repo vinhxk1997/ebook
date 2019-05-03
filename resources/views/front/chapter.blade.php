@@ -213,15 +213,13 @@
             <div class="h3 py-3">@lang('app.recommendations')</div>
             <div class="collection row">
                 @foreach ($recommended_stories as $recommended_story)
-                <div class="col-md-6">
                     @include('front.items.story', ['story' => $recommended_story])
-                </div>
                 @endforeach
             </div>
         </div>
     </div>
     @endif
-    <!-- Modal update-->
+    <!-- Modal report-->
     <div class="modal fade" id="myModalReport" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -233,7 +231,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         {!! Form::label(trans('tran.content'), '', ['class' => '']) !!}
-                        {!! Form::textarea('content', null, ['class' => 'form-control' . ($errors->has('address') ? ' is-invalid' : ''), 'required']) !!}
+                        {!! Form::textarea('content', null, ['class' => 'form-control' . ($errors->has('address') ? ' is-invalid' : ''), 'autofocus', 'required']) !!}
                     </div>
                 </div>
                 <div class="modal-footer">

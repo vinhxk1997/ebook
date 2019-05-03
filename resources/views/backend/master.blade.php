@@ -99,15 +99,10 @@
                 </a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="pagesDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-fw fa-comments"></i>
+                <a class="nav-link" href="{{ route('story_comment') }}" id="pagesDropdown" role="button">
+                    <i class="fas fa-fw fa-cog"></i>
                     <span>{{ trans('tran.comment') }}</span>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                    <a class="dropdown-item" href="{{ route('story_comment') }}">{{ trans('tran.story_comment') }}</a>
-                    <a class="dropdown-item" href="{{ route('review_comment') }}">{{ trans('tran.review_comment') }}</a>
-                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('report') }}">
@@ -125,7 +120,7 @@
                     <span>{{ trans('tran.review') }}</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('banners') }}">
                     <i class="fas fa-fw fa-th"></i>
                     <span>{{ trans('tran.banner') }}</span></a>
             </li>
@@ -180,6 +175,15 @@
         </div>
     </div>
 </body>
+    <script>
+        var ebook = window.ebook = (ebook || {});
+        ebook.base_url = '{{ url('/') }}';
+        ebook.lang = {
+            delete_list_confirm: '{{ __('app.delete_list_confirm') }}',
+            update_success: '{{ __('app.update_success') }}',
+            read: '{{ __('tran.read') }}'
+        };
+    </script>
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('bower_components/startbootstrap-sb-admin/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>

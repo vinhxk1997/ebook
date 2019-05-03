@@ -18,9 +18,9 @@ class Story extends Model
 
     protected $cascadeDeletes = [
         'chapters',
-        'comments',
         'reports',
-        'review'
+        'reviews',
+        'notifies',
     ];
 
     protected $casts = [
@@ -71,6 +71,11 @@ class Story extends Model
     {
         return $this->belongsToMany('App\Models\Meta', 'meta_story', 'story_id', 'meta_id')
             ->where('type', 'category');
+    }
+
+    public function notifies()
+    {
+        return $this->morphMany('App\Models\Notification', 'notifiable');
     }
 
     public function chapters()

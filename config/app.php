@@ -2,7 +2,9 @@
 
 return [
     // item per page
-    'per_page' => 10,
+    'per_page' => 9,
+    //
+    'comment' => 10,
     // comments per page
     'comments_per_page' => 5,
     'followings_per_page' => 8, // in user followings
@@ -15,7 +17,7 @@ return [
     'random_items' => 6,
     'max_random_items' => 25,
     // recommended item in chapter
-    'chapter_recommended_items' => 2,
+    'chapter_recommended_items' => 3,
     // user avatar
     'default_avatar' => '0.png',
     'avatar_path' => 'upload/avatars/',

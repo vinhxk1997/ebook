@@ -1,4 +1,8 @@
 $(document).ready(function () {
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+    $('div.alert').delay(3000).slideUp();
     var owl = $('.owl-carousel');
     owl.owlCarousel({
         items:1,
@@ -21,6 +25,13 @@ $(document).ready(function () {
                 + '<a href="' + ebook.base_url + '/story/' + rs.id + '-' + rs.slug + '" class="btn btn-info">' + ebook.lang.read + '</a></div>');
             }
         });
+    });
+    $('form').on('change', '#avatar_file', function () {
+        readURL(this, '#avatar');
+    });
+
+    $('form').on('change', '#cover_image', function () {
+        readURL(this, '#cover_image');
     });
     $(document).on('click', '.on-story-preview', function () {
         var $this = $(this),
@@ -632,24 +643,27 @@ $(document).ready(function () {
     });
     $('.on-delete-story').on('click', function (e) {
         e.preventDefault();
-        var $this = $(this);
-        $.ajax({
-            method: 'post',
-            url: $this.data('url'),
-            data: {
-                _method: 'delete'
-            },
-            cache: false
-        }).done(function (res) {
-            if (res && res.success) {
-                window.location.replace(res.redirectTo);
-                $this.closest('.story').remove()
-            } else {
+        let rs = confirm('Are you sure delete this story');
+        if (rs == true) {
+            var $this = $(this);
+            $.ajax({
+                method: 'post',
+                url: $this.data('url'),
+                data: {
+                    _method: 'delete'
+                },
+                cache: false
+            }).done(function (res) {
+                if (res && res.success) {
+                    window.location.replace(res.redirectTo);
+                    $this.closest('.story').remove()
+                } else {
+                    ebook.showNotify(ebook.lang.unknow_error)
+                }
+            }).fail(function () {
                 ebook.showNotify(ebook.lang.unknow_error)
-            }
-        }).fail(function () {
-            ebook.showNotify(ebook.lang.unknow_error)
-        })
+            })
+        }
     });
     $('.on-unpublish-story').on('click', function (e) {
         e.preventDefault();
@@ -756,3 +770,14 @@ $.extend(true, ebook, {
         }
     }
 });
+function readURL(input, id) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $(id).attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+

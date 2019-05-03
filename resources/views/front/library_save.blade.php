@@ -39,8 +39,8 @@
                             <a class="avatar avatar-sm flex-shrink-0" href="{{ route('user_about', ['user' => $story->user->login_name]) }}"><img src="{{ get_avatar($story->user) }}" /></a>
                         </div>
                         <div class="meta row">
-                            <span class="col-6"><i class="fa fa-eye"></i> {{ $story->views }}</span>
-                            <span class="col-6"><i class="fa fa-star"></i> {{ $story->votes }}</span>
+                            <span class="col-6"><i class="fa fa-eye"></i> {{ $story->views() }}</span>
+                            <span class="col-6"><i class="fa fa-star"></i> {{ $story->votes() }}</span>
                         </div>
                     </div>
                 </div>

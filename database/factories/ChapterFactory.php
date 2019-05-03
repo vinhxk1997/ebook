@@ -9,7 +9,7 @@ $factory->define(App\Models\Chapter::class, function (Faker $faker) {
     return [
         'title' => $name,
         'slug' => str_slug($name),
-        'content' => $faker->paragraph(20, true),
+        'content' => $faker->paragraph(50, true),
         'status' => rand(0, 1)
     ];
 });
