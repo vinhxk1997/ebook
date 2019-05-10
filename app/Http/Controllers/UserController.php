@@ -74,8 +74,7 @@ class UserController extends Controller
                 $q->published();
             }])
             ->where('user_id', $this->currentProfile->id)
-            ->limit(config('app.profile_shown_stories'))
-            ->get();
+            ->paginate(config('app.profile_shown_stories'));
         
         $lists = $this->saveList
             ->withCount(['stories' => function ($q) {
@@ -89,7 +88,6 @@ class UserController extends Controller
                 }
             ])
             ->where('user_id', $this->currentProfile->id)
-            ->limit(config('app.profile_reading_list_shown'))
             ->get();
 
         $lists = $lists->map(function ($list) {

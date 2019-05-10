@@ -17,6 +17,8 @@ Route::get('/reviews', 'HomeController@getReivew')->name('reviews');
 Route::get('/crawl', 'CrawlController@index');
 Route::get('/new', 'CrawlController@new');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+Route::get('filter', 'HomeController@filter')->name('filter');
+Route::get('filter/result', 'HomeController@filterResult')->name('filter_result');
 
 
 // Category

@@ -4,15 +4,21 @@
     </a>
     <div class="story-details text-truncate">
         <h5 class="story-title text-truncate">
-            <a href="{{ route('story', ['id' => $story->id, 'slug' => $story->slug]) }}" data-toggle="tooltip" title="{{ $story->title }}" class="on-story-preview text-truncate">{{ $story->title }}</a>
+            <a class="text-success" href="{{ route('story', ['id' => $story->id, 'slug' => $story->slug]) }}" data-toggle="tooltip" title="{{ $story->title }}" class="on-story-preview text-truncate">{{ $story->title }}</a>
         </h5>
         @if (!isset($in_profile))
         <div class="story-uploader"><a href="{{ route('user_about', ['user' => $story->user->login_name]) }}">@lang('app.by') {{ $story->user->full_name }}</a></div>
         @endif
         <div class="story-stats">
+            <div>
             <span class="view-count"><i class="fa fa-eye"></i>&nbsp{{ $story->views() }}</span>
+            </div>
+            <div>
             <span class="vote-count"><i class="fa fa-star"></i>&nbsp{{ $story->votes() }}</span>
-            <span class="chapter-count"><i class="fa fa-list-ul"></i>&nbsp{{ $story->chapters()->count() }}</span>
+            </div>
+            <div>
+            <span class="chapter-count"><i class="fa fa-list-ul"></i>&nbsp{{ $story->chapters()->published()->count() }}</span>
+            </div>
         </div>
         <div class="story-tags">
             <ul class="tag-items">

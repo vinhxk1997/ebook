@@ -33,6 +33,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'comments',
         'reportings',
         'reviewings',
+        'social',
+        'archives',
     ];
 
     /**
@@ -126,5 +128,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function votings()
     {
         return $this->hasMany('App\Models\Vote', 'user_id');
+    }
+
+    public function social()
+    {
+        return $this->hasOne('App\Models\SocialUser', 'user_id');
     }
 }

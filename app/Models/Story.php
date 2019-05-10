@@ -73,6 +73,11 @@ class Story extends Model
             ->where('type', 'category');
     }
 
+    public function saveLists()
+    {
+        return $this->belongsToMany('App\Models\SaveList', 'list_story', 'story_id', 'list_id');
+    }
+
     public function notifies()
     {
         return $this->morphMany('App\Models\Notification', 'notifiable');
@@ -143,5 +148,10 @@ class Story extends Model
         }
 
         return $votes;
+    }
+
+    public function archives()
+    {
+        return $this->belongsToMany('App\Models\User', 'archives', 'story_id', 'user_id');
     }
 }

@@ -23,8 +23,9 @@ class UserRepository extends BaseRepository
     public function getSaveStories($user, $is_archive = 0)
     {
         $stories = $user->archives()->published()
-            ->with(['user'])
-            ->wherePivot('is_archive', $is_archive)
+            ->with(['user', 'chapters' => function($chapter){
+                $chapter->published();
+            }])->wherePivot('is_archive', $is_archive)
             ->paginate(config('app.per_page'));
 
         $stories->getCollection()->transform(function ($story) {

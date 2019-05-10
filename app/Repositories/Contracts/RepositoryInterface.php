@@ -6,7 +6,7 @@ interface RepositoryInterface
 {
     public function where($conditions, $operator = null, $value = null);
 
-    public function whereIn($column, array $values);
+    public function whereIn($column, $values);
 
     public function orWhere($conditions, $operator = null, $value = null);
 

@@ -8,9 +8,9 @@
                 @for ($i = 0; $i < $meta_count; $i+=2)
                 <tr>
                     <td><a style="color: black" href="{{ route('meta', ['slug' => $metas[$i]->slug]) }}">
-                    <i class="fa fa-book"></i>&nbsp{{ $metas[$i]->name }}</a></td>
+                    <i class="fa fa-book"></i>&nbsp{{ $metas[$i]->name }} <p class="text-muted">&nbsp( {{ $metas[$i]->stories_count }} )</p></a></td>
                     <td><a style="color: black" href="{{ route('meta', ['slug' => $metas[$i + 1]->slug]) }}">
-                    <i class="fa fa-book"></i>&nbsp{{ $metas[$i + 1]->name }}</a></td>
+                    <i class="fa fa-book"></i>&nbsp{{ $metas[$i + 1]->name }}<p class="text-muted">&nbsp( {{ $metas[$i + 1]->stories_count }} )</p></a></td>
                 </tr>
                 @endfor
             </tbody>
@@ -20,15 +20,36 @@
                 <!-- The slideshow -->
                 @foreach ($banners as $banner)
                 <div class="item">
-                    <a href="{{ $banner->url }}"><img width="100%" height="250px;" src="{{ asset('upload/banners/') }}/{{ $banner->image }}" alt="item"></a>
+                    <a href="{{ $banner->url }}"><img width="100%" height="330rem;" src="{{ asset('upload/banners') }}/{{ $banner->image }}" alt="item"></a>
                 </div>
                 @endforeach
             </div>
-            <div>
-                <div></div> 
-                <img width="32%" height="200px;" src="http://localhost:/upload/story_covers/0_176x275.jpeg" alt="item">
-                <img width="32%" height="200px;" src="http://localhost:/upload/story_covers/0_176x275.jpeg" alt="item">
-                <img width="32%" height="200px;" src="http://localhost:/upload/story_covers/0_176x275.jpeg" alt="item">
+            <div style="margin-top:-1.5em;" class="d-flex">
+                <div class="card pmd-card card-custom-view text-center" style="width:34%; height:10em;">
+                    <div class="card-body" style="background: url('{{ asset('upload/avatars') }}/background.jpg') no-repeat center; height:10em;">
+                        <img src="{{ get_avatar($top_follow) }}" class="rounded-circle img-fluid mb-3" title="" alt="">
+                        <h5 class="card-subtitle mb-3 text-warning">No 1 followed</h5>
+                        <a href="{{ route('user_about', ['user' => $top_follow->login_name]) }}" class="btn btn-outline-info">{{ trans('tran.profile') }}</a>
+                    </div>
+                </div>
+                <div style="width:34%">
+                    <div class="card pmd-card card-custom-view text-center" style="width:100%; height:10em;">
+                        <div class="card-body" style="background: url('{{ asset('upload/avatars') }}/background.jpg') no-repeat center; height:10em;">
+                            <img src="{{ get_avatar($top_create) }}" class="rounded-circle img-fluid mb-3" title="" alt="">
+                            <h5 class="card-subtitle mb-3 text-warning">No 1 Create</h5>
+                            <a href="{{ route('user_about', ['user' => $top_create->login_name]) }}" class="btn btn-outline-info">{{ trans('tran.profile') }}</a>
+                        </div>
+                    </div>
+                </div>
+                <div style="width:34%">
+                    <div class="card pmd-card card-custom-view text-center" style="width:100%; height:10em;">
+                        <div class="card-body" style="background: url('{{ asset('upload/avatars') }}/background.jpg') no-repeat center; height:10em;">
+                            <img src="{{ get_avatar($top_review) }}" class="rounded-circle img-fluid mb-3" title="" alt="">
+                            <h5 class="card-subtitle mb-3 text-warning">No 1 Review</h5>
+                            <a href="{{ route('user_about', ['user' => $top_review->login_name]) }}" class="btn btn-outline-info">{{ trans('tran.profile') }}</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <table class="table-striped col-3 box-review">
@@ -59,7 +80,7 @@
             </ul>
         </div>
         <div class="col-8">
-            <h4  class="text-info">Bien tap vien de cu</h4>
+            <h4  class="text-info text-center">Bien tap vien de cu</h4>
             <hr>
             <div class="row d-flex">
                 <div class="col-3">
@@ -114,7 +135,7 @@
             </ul>
         </div>
         <div class="col-8">
-            <h4  class="text-info">Truyen xem nhieu</h4>
+            <h4  class="text-info text-center">Truyen xem nhieu</h4>
             <hr>
             <div class="row d-flex">
                 @foreach($stories_by_view as $story)

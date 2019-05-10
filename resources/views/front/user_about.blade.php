@@ -54,16 +54,14 @@
                         <li>{{ trans_choice('app.published_stories', $user->stories_count) }}</li>
                     </ul>
                 </div>
-                <div class="card-body">
-                    <div id="works-item">
-                        @foreach ($stories as $story)
-                            @include('front.items.story', ['story' => $story, 'in_profile'=> true])
-                        @endforeach
-                    </div>
-                    @if ($user->stories_count > config('app.profile_shown_stories'))
-                    <button class="btn btn-light btn-block mt-3">@lang('app.show_more') <i class="fa fa-angle-down"></i></button>
-                    @endif
+                <div class="card-body row d-flex">
+                    @foreach ($stories as $story)
+                        @include('front.items.story', ['story' => $story, 'in_profile'=> true])
+                    @endforeach
                 </div>
+                @if ($user->stories_count > 0)
+                    {{ $stories->links() }}
+                @endif
             </div>
         </div>
         <div id="profile-lists">
@@ -110,9 +108,6 @@
                         </div>
                         @endforeach
                     </div>
-                    @if ($user->save_lists_count > config('app.profile_reading_list_shown'))
-                        <button class="btn btn-light btn-block mt-3">@lang('app.show_more') <i class="fa fa-angle-down"></i></button>
-                    @endif
                 </div>
             </div>
         </div>

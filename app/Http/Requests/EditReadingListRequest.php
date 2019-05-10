@@ -24,7 +24,7 @@ class EditReadingListRequest extends FormRequest
     public function rules()
     {
         return [
-            'list_name' => 'required|min:3|max:127',
+            'list_name' => "required|regex:/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u|min:3|max:127",
         ];
     }
 }

@@ -26,6 +26,39 @@ $(document).ready(function () {
             }
         });
     });
+    $(window).scroll(function() {
+        if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
+            $('#return-to-top').fadeIn(200);    // Fade in the arrow
+        } else {
+            $('#return-to-top').fadeOut(200);   // Else fade out the arrow
+        }
+    });
+    $('#return-to-top').click(function() {      // When arrow is clicked
+        $('body,html').animate({
+            scrollTop : 0                       // Scroll to top of body
+        }, 500);
+    });
+    //filter
+    $(document).on('click', '.filter', function () {
+        filter($(this));
+    });
+    $(document).on('change', '#select-cate', function () {
+        filter($(this));
+    });
+    $(document).on('change', '#font-change', function() {
+        let val = $(this).val();
+        if (!$(this).val()) {
+            val = $(this).attr('min');
+            $(this).val(val);
+        } else if ($(this).val() <= 10) {
+            val = $(this).attr('min');
+            $(this).val(val);
+        } else if ($(this).val() >= 60) {
+            val = $(this).attr('max');
+            $(this).val(val);
+        }
+        $('#size-content').css('font-size', val + 'px');
+    });
     $('form').on('change', '#avatar_file', function () {
         readURL(this, '#avatar');
     });
@@ -780,4 +813,33 @@ function readURL(input, id) {
     }
 }
 
-
+//function filter
+function filter(element) {
+    let select = element.closest('div').find('.filter');
+    select.removeClass('active');
+    element.addClass('active');
+    let value = [];
+    $('.filter.active').each(function () {
+        value.push($(this).data('value'));
+    });
+    value.push($('#select-cate').val());
+    $.ajax({
+        url: ebook.base_url + '/filter/result',
+        type: 'get',
+        data: {
+            status: value[0],
+            rank: value[1],
+            tag: value[2],
+            cate: value[3]
+        },
+    })
+    .done(function(e) {
+        console.log(e);
+        $('#filter').empty();
+        $('#filter').append(e);
+    })
+    .fail(function() {
+    })
+    .always(function() {
+    });        
+}
