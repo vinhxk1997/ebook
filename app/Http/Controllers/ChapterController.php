@@ -42,9 +42,12 @@ class ChapterController extends Controller
 
             return $chapter;
         });
-
-        views($chapter)->delayInSession(now()->addHours(1))->record();
-
+        if (Auth::check()) {
+            views($chapter)->overrideVisitor(auth()->user()->id)->delayInSession(now()->addHours(1))->record();
+            auth()->user()->archives()->syncWithoutDetaching($story->id);
+        } else {
+            views($chapter)->delayInSession(now()->addHours(1))->record();
+        }
         $chapter->slug = $story->slug . '-' . $chapter->slug;
         $chapter->share_url = urlencode(route('read_chapter', ['id' => $chapter->id, 'slug' => $chapter->slug]));
         $chapter->share_text = urlencode($chapter->title);

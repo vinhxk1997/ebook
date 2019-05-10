@@ -15,6 +15,7 @@
 </head>
 
 <body>
+    <a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
     <nav class="navbar navbar-expand fixed-top navbar-dark bg-dark" id="topNavbar">
         <div class="container">
             <a class="navbar-brand" href="{{ route('home') }}">Story Reader</a>
@@ -53,6 +54,12 @@
                 ) !!}
                 {!! Form::close() !!}
                 <ul class="navbar-nav">
+                    <li class="nav-item d-flex">
+                        <a class="nav-link" href="{{ route('filter') }}">
+                            <i class="fa fa-filter"></i>
+                            <span >{{ trans('tran.filter') }}</span>
+                        </a>
+                    </li>
                     @auth
                     <li class="nav-item dropdown notify-dropdown d-flex">
                     @if ($noread > 0)

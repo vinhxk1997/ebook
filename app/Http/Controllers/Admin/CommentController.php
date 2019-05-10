@@ -20,7 +20,7 @@ class CommentController extends Controller
         $type = 'App\Models\Chapter';
         $comments = $this->comment->with('commentable', 'user', 'replies')->where('commentable_type', $type)
         ->where('parent_id', 0)->paginate(config('app.comment'));
-        // dd($comments);
+
         return view('backend.comments.story_comment', compact('comments'));
     }
 

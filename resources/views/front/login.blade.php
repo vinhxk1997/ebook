@@ -37,9 +37,9 @@
         {!! Form::checkbox('remember', 1, false) !!} @lang('app.remember_me')
     </label>
 </div>
-{!! Form::submit(__('app.login'), ['class' => 'btn btn-lg btn-primary btn-block']) !!}
-<a href="{{ route('social_login', ['provider' => 'facebook']) }}" class="btn btn-lg btn-success btn-block">@lang('app.login_with_facebook')</a>
-<a href="{{ route('social_login', ['provider' => 'google']) }}" class="btn btn-lg btn-info btn-block">@lang('app.login_with_google')</a>
+{!! Form::submit(__('app.login'), ['class' => 'btn btn-lg btn-info btn-block']) !!}
+<a href="{{ route('social_login', ['provider' => 'facebook']) }}" class="btn btn-lg btn-primary btn-block">@lang('app.login_with_facebook')</a>
+<a href="{{ route('social_login', ['provider' => 'google']) }}" class="btn btn-lg btn-danger btn-block">@lang('app.login_with_google')</a>
 <hr>
 <div>
     @lang('app.do_not_have_an_account') <a href="{{ route('register') }}">@lang('app.register')</a>

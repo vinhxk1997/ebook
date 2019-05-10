@@ -9,7 +9,7 @@ return [
     'review_comment' => 'Bình Luận Phê Bình',
     'report' => 'Báo Cáo',
     'meta' => 'Danh Mục',
-    'review' => 'Phê Bình',
+    'review' => 'Đánh giá',
     'banner' => 'Biểu Ngữ',
     'view_detail' => 'Hiển Thị Chi Tiết',
     'vietnamese' => 'Tiếng Việt',
@@ -105,4 +105,6 @@ return [
     'url' => "URL",
     'image' => 'Hình Ảnh',
     'banner_update_status' => 'Cập nhật biểu ngữ thành công',
+    'profile' => 'Hồ sơ',
+    'filter' => 'Bộ lọc',
 ];

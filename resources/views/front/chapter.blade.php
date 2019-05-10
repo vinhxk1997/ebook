@@ -28,6 +28,9 @@
                         @foreach ($story->chapters as $story_chapter)
                             <a href="{{ route('read_chapter', ['id' => $story_chapter->id, 'slug' => $story_chapter->slug]) }}" class="list-group-item{{ $story_chapter->id == request()->route('id') ? ' active' : '' }}">
                                 {{ $story_chapter->title }}
+                                @if (auth()->user() && $story_chapter->views()->where('visitor', auth()->user()->id)->count())
+                                    <i class="fa fa-check"></i>
+                                @endif
                             </a>
                         @endforeach
                     </div>
@@ -100,16 +103,29 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col-md-7 col-lg-6 main-content">
+                    <div class="col-md-7 col-lg-8 main-content">
                         <div class="content">
-                            <pre>
+                            <span id="size-content">
                                 {{ $chapter->content }}
-                            </pre>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-1 col-lg-2 share-bar">
+                        <div class="sticky-top">
+                            <a href="javascript:" data-toggle="dropdown">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x text-secondary"></i>
+                                    <i class="fa fa-cog fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a href="javascript:" class="dropdown-item"><label for="font">Font-size:&nbsp</label><input id="font-change" name="font" type="number" value="20" min="10" max="60" required style="width: 50px;"></a>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="chapter-footer row">
-                    <div class="col-md-7 offset-md-1 col-lg-6 offset-lg-2">
+                    <div class="col-md-7 offset-md-1 col-lg-6 offset-lg-3">
                         <div class="next">
                         @if ($next_chapter)
                             <a class="btn btn-primary btn-lg btn-block text-white" href="{{ route('read_chapter', ['id' => $next_chapter->id, 'slug' => $next_chapter->slug]) }}">@lang('app.continue_reading_next_chapter')

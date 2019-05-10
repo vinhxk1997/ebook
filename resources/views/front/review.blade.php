@@ -18,20 +18,20 @@
         </div>
         <div class="col-md-9">
             @foreach ($reviews as $review)
-            <div class="d-flex row" id="review-{{ $review->id }}" style="margin:1%;">
+            <div class="d-flex row" style="margin:1%;">
                 <div class="col-2">
                     <div class="avatar avatar-profile">
                         <img class="img-thumbnail" src="{{ get_avatar($review->user_id) }}" />
                     </div>
                 </div>
-                <div class="col-10 row d-block">
+                <div class="col-10 row d-block" id="review-{{ $review->id }}">
                     <div class="header">
                         <div class="info">
                             <a href="{{ route('user_about', ['user' => $review->user->login_name]) }}">{{ $review->user->full_name }}</a>
                         </div>
                     </div>
                     <details>
-                        <summary>{{ $review->title }}</summary>
+                        <summary><strong>{{ $review->title }}</strong></summary>
                         <pre>{{ $review->content }}</pre>
                     </details>
                     <div class="footer d-plex">

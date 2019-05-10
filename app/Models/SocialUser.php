@@ -8,6 +8,8 @@ class SocialUser extends Model
 {
     public $timestamps = false;
 
+    protected $primaryKey = 'user_id';
+    
     protected $fillable = [
         'provider_user_id',
         'provider',

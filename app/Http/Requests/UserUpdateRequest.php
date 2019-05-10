@@ -24,10 +24,10 @@ class UserUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
-            'loginname' => 'required|string|max:255',
+            'name' => 'required|regex:/^[0-9a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,./|string|max:255',
+            'loginname' => 'required|regex:/^[0-9a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,./|string|max:255',
             'email' => 'required|string|email|max:255',
-            'password' => 'confirmed',
+            'password' => ['string', 'min:5', 'max:10', 'confirmed'],
             'avatar_file' => 'image|mimes:jpg,jpeg,png,gif',
             'cover_image' => 'image|mimes:jpg,jpeg,png,gif',
         ];

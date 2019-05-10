@@ -34,22 +34,6 @@ class CrawlController extends Controller
     }
 
     public function new() {
-        $stories = Story::published()->inRandomOrder()->take(6)->get();
-        $recommend_stories = Story::published()->where('is_recommended', 1)->inRandomOrder()->take(6)->get();
-        $metas = Meta::take(14)->get();
-        $meta_count = $metas->count();
-        $reviews = Review::orderby('created_at')->take(9)->get();
-        $new_stories = Story::published()->orderBy('updated_at', 'desc')->take(11)->get();
-        $completed_stories = Story::published()->where('is_complete', 1)->take(11)->get();
-        $vote_stories = Story::all()->sortByDesc(function ($story) {
-            return $story->votes();
-        })->take(7);
-        $follow_stories = null;
-        if (auth()->user()) {
-            $follow_stories = auth()->user()->archives()->published()->where('is_archive', 1)->take(7)->get();
-        }
-
-        return view('front.new', compact('stories', 'metas', 'meta_count', 'reviews', 'recommend_stories', 'new_stories'
-        , 'completed_stories', 'vote_stories', 'follow_stories'));
+        return view('front.word');
     } 
 }

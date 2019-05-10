@@ -33,8 +33,8 @@
                     <div class="content">
                         <div class="info d-flex">
                             <div>
-                                <strong>{{ $story->title }}</strong>
-                                <small>{{ $story->user->login_name }}</small>
+                                <strong data-toggle="tooltip" title="{{ $story->title }}">{{ $story->title }}</strong>
+                                <small>{{ $story->user->full_name }}</small>
                             </div>
                             <a class="avatar avatar-sm flex-shrink-0" href="{{ route('user_about', ['user' => $story->user->login_name]) }}"><img src="{{ get_avatar($story->user) }}" /></a>
                         </div>

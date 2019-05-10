@@ -101,5 +101,25 @@ class StoryRepository extends BaseRepository
             ->paginate(config('app.per_page'));
     }
 
-    
+    public function trackingByView()
+    {
+        $stories = $this->all();
+        foreach ($stories as $story)
+        {
+            $story->update([
+                'views' => $story->views(),
+            ]);
+        }
+    }
+
+    public function trackingByVote()
+    {
+        $stories = $this->all();
+        foreach ($stories as $story)
+        {
+            $story->update([
+                'votes' => $story->votes(),
+            ]);
+        }
+    }
 }

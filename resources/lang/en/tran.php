@@ -103,4 +103,6 @@ return [
     'url' => "URL",
     'image' => 'Image',
     'banner_update_status' => 'update banner success',
+    'profile' => 'Profile',
+    'filter' => 'Filter',
 ];
