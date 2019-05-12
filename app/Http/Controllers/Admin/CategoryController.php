@@ -35,8 +35,8 @@ class CategoryController extends Controller
     {
         $meta = $this->cateRepo;
         $meta->create([
-            'name' => $request->get('meta_name'),
-            'slug' => $request->get('meta_name'),
+            'name' => $request->get('name'),
+            'slug' => $request->get('name'),
             'type' => ($request->get('meta_type') != 'category') ? 'category' : 'tag',
         ]);
         
@@ -52,8 +52,8 @@ class CategoryController extends Controller
     {
         $meta = $this->cateRepo->findOrFail($id);
         $meta->update([
-            'name' => $request->get('meta_name'),
-            'slug' => $request->get('meta_name'),
+            'name' => $request->get('name'),
+            'slug' => $request->get('name'),
             'type' => $request->get('meta_type'),
         ]);
 

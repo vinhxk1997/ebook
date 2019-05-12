@@ -105,4 +105,10 @@ return [
     'banner_update_status' => 'update banner success',
     'profile' => 'Profile',
     'filter' => 'Filter',
+    'new_story' => 'New story',
+    'recommend_story' => 'Recommended story',
+    'top_view' => 'Top view',
+    'top_follow' => 'Top follow',
+    'top_vote' => 'Top vote',
+    'non_notify' => 'Has not notification',
 ];

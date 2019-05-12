@@ -3,7 +3,7 @@
 
 @section('tab_content')
 <div class="user-activity row">
-    @if (auth()->user()->id == $user->id)
+    @if (auth()->user() && auth()->user()->id == $user->id)
         {!! Form::open(['method' => 'POST', 'files' => true]) !!}
             @if (session('status'))
             <div class="alert alert-success">

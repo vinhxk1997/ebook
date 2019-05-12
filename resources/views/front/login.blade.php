@@ -5,7 +5,7 @@
 
 {!! Form::open(['method' => 'POST', 'url' => route('login'), 'class' => 'form-login']) !!}
 <div class="text-center mb-4">
-    <h1 class="h3 mb-3 font-weight-normal"><a href="{{ route('home') }}">{{ config('app.name') }}</a></h1>
+    <h1 class="h3 mb-3 font-weight-normal"><a href="{{ route('home') }}">Story Reader</a></h1>
 </div>
 @if ($errors->count())
     <div class="alert alert-warning">{!! implode('<br>', $errors->all()) !!}</div>

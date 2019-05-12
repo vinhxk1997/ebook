@@ -19,10 +19,10 @@
                     <i class="fa fa-ellipsis-h"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
+                    @if ($story->is_published)
                     <a class="dropdown-item" target="blank" href="{{ route('story', ['id' => $story->id, 'slug' => $story->slug]) }}">
                         @lang('app.view_as_reader')
                     </a>
-                    @if ($story->is_published)
                     <button class="dropdown-item on-unpublish-story" data-url="{{ route('story_unpublish', [
                         'story' => $story->id
                     ]) }}">

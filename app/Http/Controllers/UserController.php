@@ -7,6 +7,7 @@ use App\Repositories\StoryRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use App\Models\UserProfile;
+use App\Models\User;
 use App\Http\Requests\UserFrontUpdateRequest;
 use Auth, DB, View;
 
@@ -146,13 +147,15 @@ class UserController extends Controller
 
     public function following()
     {
-        $followings = auth()->user()
+        $followings = new User;
+       
+        if (Auth::check()) {
+            $followings = auth()->user()
             ->selectRaw('
                 users.*,
                 follows.followed_user_id as pivot_followed_user_id,
                 follows.following_user_id as pivot_following_user_id
             ');
-        if (Auth::check()) {
             $followings = $followings->selectRaw(
                 '(SELECT COUNT(*) FROM follows as sub_follows
                     WHERE sub_follows.following_user_id = follows.following_user_id

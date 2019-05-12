@@ -22,7 +22,7 @@ return [
     'continue_reading_description' => 'Find more in your library',
     'continue_reading_next_chapter' => 'Continue reading next chapter',
     'conversations' => 'Profile',
-    'create' => 'Create',
+    'create' => 'Created',
     'create_a_reading_list' => 'Create a reading list',
     'current_reads' => 'Current reads',
     'd_m_y_format' => 'M d, Y',
@@ -52,7 +52,7 @@ return [
     'full_name' => 'Full name',
     'forgot_password' => 'Forgot password',
     'joined' => 'Joined',
-    'genre' => 'Genre',
+    'genre' => 'Category',
     'help' => 'Help',
     'home' => 'Home',
     'hot' => 'Hot',
@@ -154,5 +154,7 @@ return [
     'works_choice' => '{0} Works|{1} Work|[2,*] Works',
     'write_a_reply' => 'Write a reply...',
     'you_will_also_like' => 'You\'ll also like',
-    'comment_notify' => ' commented on your book'
+    'comment_notify' => ' commented on your book',
+    'all' => 'All',
+    'rank' => 'Rank',
 ];

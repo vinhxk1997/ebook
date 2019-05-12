@@ -24,8 +24,8 @@ class UserFrontUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => "required|regex:/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u|string|max:255",
-            'password' => ['string', 'min:5', 'max:10', 'confirmed'],
+            'name' => "required|regex:/^[a-zA-ZẠ-ỹAÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶEÉÈẺẼẸÊẾỀỂỄỆIÍÌỈĨỊOÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢUÚÙỦŨỤƯỨỪỬỮỰYÝỲỶỸỴĐaáàảãạâấầẩẫậăắằẳẵặeéèẻẽẹêếềểễệiíìỉĩịoóòỏõọôốồổỗộơớờởỡợuúùủũụưứừửữựyýỳỷỹỵđÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯư ,.'-]+$/u|string|max:255",
+            'password' => ['confirmed'],
             'avatar_file' => 'image|mimes:jpg,jpeg,png,gif',
             'cover_image' => 'image|mimes:jpg,jpeg,png,gif',
         ];

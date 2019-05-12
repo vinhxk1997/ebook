@@ -99,7 +99,7 @@
                             @endif
                         @endforeach
                     @else
-                        <li class="dropdown-header">No notifications</li>
+                        <li class="dropdown-header">{{ trans('tran.non_notify') }}</li>
                     @endif
                     </ul>
                     </li>

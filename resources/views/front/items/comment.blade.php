@@ -21,7 +21,7 @@
         </div>
         <pre>{{ $comment->content }}</pre>
         <div class="footer d-plex">
-            <button class="btn btn-sm btn-link on-reply-click">Reply</button>
+            <button class="btn btn-sm btn-link on-reply-click">{{ trans('tran.reply') }}</button>
             @if ($comment->replies_count)
                 <button data-url="{{ route('reply', ['id' => $comment->id]) }}" class="btn btn-sm btn-link on-reply-show">{{ trans_choice('app.replies', $comment->replies_count) }}</button>
             @endif

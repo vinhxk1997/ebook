@@ -11,7 +11,7 @@
         </div>
         <div class="actions">
             <a href="{{ route('story', ['id' => $story->id, 'slug' => $story->slug]) }}" class="btn btn-sm btn-primary start-reading">
-                @lang('app.read')
+                @lang('tran.read')
             </a>
             @auth
             <div class="d-inline-block dropdown button-lists-add" data-id="{{ $story->id }}">
