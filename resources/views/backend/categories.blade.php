@@ -18,16 +18,16 @@
     @endif
     {!! Form::open(['method' => 'POST']) !!}
     <div class="form-group row">
-        {!! Form::label('meta_name', trans('tran.meta_name'), ['class' => 'col-md-2 col-form-label text-center']) !!}
+        {!! Form::label('name', trans('tran.meta_name'), ['class' => 'col-md-2 col-form-label text-center']) !!}
         <div class="col-md-4">
-            {!! Form::text('meta_name', $cate->name, ['class' => 'form-control' . ($errors->has('meta_name') ? ' is-invalid' : '') , 'id' => 'cate', 'placeholder' =>
+            {!! Form::text('name', $cate->name, ['class' => 'form-control' . ($errors->has('name') ? ' is-invalid' : ''), 'id' => 'cate', 'placeholder' =>
             trans('tran.enter_cate')]) !!}
+            @if ($errors->has('name'))
+            <span class="invalid-feedback">
+                <strong>{{ $errors->first('name') }}</strong>
+            </span>
+            @endif
         </div>
-        @if ($errors->has('meta_name'))
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $errors->first('meta_name') }}</strong>
-        </span>
-        @endif
     </div>
     <div class="form-group row">
         {!! Form::label('meta_type', trans('tran.meta_type'), ['class' => 'col-md-2 col-form-label text-center']) !!}

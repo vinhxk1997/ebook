@@ -26,6 +26,9 @@ $(document).ready(function () {
             }
         });
     });
+    $(document).ready( function () {
+        $('#table_id').DataTable();
+    } );
     $(window).scroll(function() {
         if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
             $('#return-to-top').fadeIn(200);    // Fade in the arrow

@@ -54,7 +54,7 @@
         </div>
         <table class="table-striped col-3 box-review">
             <thead class="text-info">
-                <th><h4>Review</h4></th>
+                <th><h4>{{ trans('tran.review') }}</h4></th>
             </thead>
             <tbody>
                 @foreach ($reviews as $review)
@@ -65,9 +65,10 @@
             </tbody>
         </table>
     </div>
+    <hr>
     <div class="row">
         <div class="col-2">
-            <h4  class="text-info">Truyen moi</h4>
+            <h4  class="text-info">{{ trans('tran.new_story') }}</h4>
             <hr>
             <ul style="list-style-type:none;">
                 @foreach ($new_stories as $story)
@@ -80,7 +81,7 @@
             </ul>
         </div>
         <div class="col-8">
-            <h4  class="text-info text-center">Bien tap vien de cu</h4>
+            <h4  class="text-info text-center">{{ trans('tran.recommend_story') }}</h4>
             <hr>
             <div class="row d-flex">
                 <div class="col-3">
@@ -107,7 +108,7 @@
             </div>
         </div>
         <div class="col-2">
-            <h4  class="text-info">Hoan thanh</h4>
+            <h4  class="text-info">{{ trans('app.completed') }}</h4>
             <hr>
             <ul>
                 @foreach ($completed_stories as $story)
@@ -122,7 +123,7 @@
     </div>
     <div class="row">
         <div class="col-2">
-            <h4  class="text-info">Binh chon</h4>
+            <h4  class="text-info">{{ trans('app.vote') }}</h4>
             <hr>
             <ul style="list-style-type:none;">
                 @foreach ($vote_stories as $story)
@@ -135,7 +136,7 @@
             </ul>
         </div>
         <div class="col-8">
-            <h4  class="text-info text-center">Truyen xem nhieu</h4>
+            <h4  class="text-info text-center">{{ trans('tran.top_view') }}</h4>
             <hr>
             <div class="row d-flex">
                 @foreach($stories_by_view as $story)
@@ -144,7 +145,7 @@
             </div>
         </div>
         <div class="col-2">
-            <h4 class="text-info">Đang theo dõi</h4>
+            <h4 class="text-info">{{ trans('tran.top_follow') }}</h4>
             <hr>
             <ul style="list-style-type:none;">
                 @if($follow_stories != null)

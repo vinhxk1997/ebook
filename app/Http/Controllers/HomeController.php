@@ -53,12 +53,10 @@ class HomeController extends Controller
         $vote_stories = Story::published()->with(['chapters' => function ($q) {
             $q->published();
         }])->orderBy('votes', 'desc')->take(7)->get();
-        $follow_stories = null;
-        if (auth()->user()) {
-            $follow_stories = auth()->user()->archives()->with(['chapters' => function ($q) {
-                $q->published();
-            }])->published()->take(7)->get();
-        }
+        $follow_stories = Story::published()->withCount('saveLists')->orderBy('save_lists_count', 'desc')
+        ->with(['chapters' => function ($q) {
+            $q->published();
+        }])->published()->take(7)->get();
         $stories_by_view = Story::published()->with(['chapters' => function ($q) {
             $q->published();
         }])->orderBy('views', 'desc')->take(6)->get();

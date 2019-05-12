@@ -7,7 +7,7 @@
 			<div class="row">
 				<h3>{{ trans('tran.category') }}</h3>
 				<select id="select-cate" class="custom-select custom-select-lg mb-3">
-					<option selected value="0">All</option>
+					<option selected value="0">{{ trans('app.all') }}</option>
 					@foreach($metas as $meta)
 						<option value="{{ $meta->id }}">{{ $meta->name }}</option>
 					@endforeach
@@ -16,31 +16,31 @@
 			<hr>
 			<div class="row d-block">
 				<div>
-					<h3>Status</h3>
+					<h3>{{ trans('tran.status') }}</h3>
 				</div>
 				<div class="status">
-					<a href="javascript:" class="btn btn-outline-dark filter active" data-value="0">All</a>
-					<a href="javascript:" class="btn btn-outline-dark filter" data-value="1">Completed</a>
-					<a href="javascript:" class="btn btn-outline-dark filter" data-value="2">Ongoing</a>
+					<a href="javascript:" class="btn btn-outline-dark filter active" data-value="0">{{ trans('app.all') }}</a>
+					<a href="javascript:" class="btn btn-outline-dark filter" data-value="1">{{ trans('app.completed') }}</a>
+					<a href="javascript:" class="btn btn-outline-dark filter" data-value="2">{{ trans('app.ongoing') }}</a>
 				</div>
 			</div>
 			<hr>
 			<div class="row d-block">
 				<div>
-					<h3>Rank</h3>
+					<h3>{{ trans('app.rank') }}</h3>
 				</div>
 				<div class="rank">
 					<a href="javascript:" class="btn btn-outline-dark filter active" data-value="0">Not Rank</a>
-					<a href="javascript:" class="btn btn-outline-dark filter" data-value="1">Recommended</a>
-					<a href="javascript:" class="btn btn-outline-dark filter" data-value="2">Top View</a>
-					<a href="javascript:" class="btn btn-outline-dark filter" data-value="3">Top Vote</a>
-					<a href="javascript:" class="btn btn-outline-dark filter" data-value="4">Top follow</a>
+					<a href="javascript:" class="btn btn-outline-dark filter" data-value="1">{{ trans('app.recommendations') }}</a>
+					<a href="javascript:" class="btn btn-outline-dark filter" data-value="2">{{ trans('tran.top_view') }}</a>
+					<a href="javascript:" class="btn btn-outline-dark filter" data-value="3">{{ trans('tran.top_vote') }}</a>
+					<a href="javascript:" class="btn btn-outline-dark filter" data-value="4">{{ trans('tran.top_follow') }}</a>
 				</div>
 			</div>
 			<hr>
 			<div class="row d-block">
 				<div>
-					<h3>Tags</h3>
+					<h3>{{ trans('app.tags') }}</h3>
 				</div>
 				<div class="tag">
 					<a href="javascript:" class="btn btn-outline-dark text-capitalize filter active" data-value="0">no filter</a>

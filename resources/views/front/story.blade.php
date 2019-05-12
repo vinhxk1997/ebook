@@ -45,7 +45,7 @@
                     <div class="card-body">
                         <div class="story-actions">
                             <a href="{{ route('read_chapter', ['id' => $first_chapter->id, 'slug' => $first_chapter->slug]) }}" class="btn btn-primary btn-sm start-reading">
-                                @lang('app.read')
+                                @lang('tran.read')
                             </a>
                             @auth
                             <div class="d-inline-block dropdown button-lists-add" data-id="{{ $story->id }}">
@@ -109,6 +109,7 @@
             </div>
             <div class="col-md-4">
                 <div class="card card-no-top">
+                    @if (auth()->user())
                     <div class="card-body pt-3">
                         <a href="#" class="dropdown-item" data-toggle="modal" data-target="#myModalReport"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>
                             @lang('app.report_this_story')</a>
@@ -117,6 +118,7 @@
                         <a href="#" class="dropdown-item" data-toggle="modal" data-target="#myModalReview"><i class="fa fa-star" aria-hidden="true"></i>
                             @lang('tran.review')</a>
                     </div>
+                    @endif
                 </div>
                 <div class="similar-stories card card-simple-header">
                     <h4 class="card-header">@lang('app.you_will_also_like')</h4>

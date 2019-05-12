@@ -107,4 +107,10 @@ return [
     'banner_update_status' => 'Cập nhật biểu ngữ thành công',
     'profile' => 'Hồ sơ',
     'filter' => 'Bộ lọc',
+    'new_story' => 'Truyện mới',
+    'recommend_story' => 'Truyện đề cử',
+    'top_view' => 'Xem nhiều',
+    'top_follow' => 'Theo dõi nhiều',
+    'top_vote' => 'Bình chọn nhiều',
+    'non_notify' => 'Không có thông báo',
 ];
